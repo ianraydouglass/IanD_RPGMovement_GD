@@ -1,5 +1,6 @@
-[gd_scene load_steps=29 format=3 uid="uid://cfe4gkd7hbca5"]
+[gd_scene load_steps=30 format=3 uid="uid://cfe4gkd7hbca5"]
 
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_6ieus"]
 [ext_resource type="Texture2D" uid="uid://idxd1a4wlicp" path="res://sprites/characters/Standard Shadow.png" id="1_kmkhi"]
 [ext_resource type="Texture2D" uid="uid://bv2p0mtbdlfjx" path="res://sprites/characters/player placeholder/Placeholder character shadowless.png" id="2_mhp66"]
 
@@ -216,6 +217,7 @@ radius = 3.0
 height = 13.0
 
 [node name="Player" type="Node2D"]
+script = ExtResource("1_6ieus")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 texture = ExtResource("1_kmkhi")
