@@ -14,10 +14,20 @@ var true_direction: Vector2 = Vector2(0,0)
 # Called when the node enters the scene tree for the first time.
 var player_sprite
 
+var current_direction = "none"
+
+#used by SpriteAnimator node to play the correct animations
+var idle_id = "p idle "
+var walk_id = "player "
+
+var sprite_animator
+
 func _ready():
 	#get a reference to the input manager
 	input_manager = $"../InputManager"
 	player_sprite = $PlayerCharacter/PlayerCharacterSprite
+	player_sprite.play("p idle s")
+	sprite_animator = $PlayerCharacter/PlayerCharacterSprite/SpriteAnimator
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -47,6 +57,10 @@ func freeze_player():
 func set_true_direction():
 	if(is_moving):
 		true_direction = input_manager.move_direction
+		var new_direction = walk_to_vector(true_direction)
+		if new_direction != current_direction:
+			sprite_animator.play_walk(new_direction)
+			current_direction = new_direction
 		#check if we are playing the right moving animation
 		#play the correct one if the current one doesn't match the vector
 	else:
@@ -56,6 +70,7 @@ func set_true_direction():
 		true_direction = Vector2 (0,0)
 		
 func idle_to_vector(last_direction: Vector2):
+	current_direction = "none"
 	var idle_x = last_direction.x
 	var idle_y = last_direction.y
 	#figure out which component of the vector is stronger
@@ -64,30 +79,36 @@ func idle_to_vector(last_direction: Vector2):
 	if idle_y < 0:
 		idle_y = idle_y * -1
 	if idle_y >= idle_x:
-		play_idle_y(last_direction.y)
+		sprite_animator.play_idle_y(last_direction.y)
 	else:
-		play_idle_x(last_direction.x)
+		sprite_animator.play_idle_x(last_direction.x)
 	
-func play_idle_y(v: float):
+func walk_to_vector(last_direction: Vector2):
+	var idle_x = last_direction.x
+	var idle_y = last_direction.y
+	var check_direction = "none"
+	#figure out which component of the vector is stronger
+	if idle_x < 0:
+		idle_x = idle_x * -1
+	if idle_y < 0:
+		idle_y = idle_y * -1
+	if idle_y >= idle_x:
+		check_direction = play_walk_y(last_direction.y)
+	else:
+		check_direction = play_walk_x(last_direction.x)
+	return check_direction
+	
+func play_walk_y(v: float):
 	if v <= 0:
-		player_sprite.play("player north")
-		#play idle north
+		return "north"
 		
 	else:
-		player_sprite.play("player south")
-		#play idle south
+		return "south"
 		
-	
-
-func play_idle_x(v: float):
+func play_walk_x(v: float):
 	if v <= 0:
-		player_sprite.play("player west")
-		#print("idle west")
-		#play idle west
+		return "west"
 		
 	else:
-		player_sprite.play("player east")
-		#print("idle east")
-		#play idle east
+		return "east"
 		
-	

@@ -1,51 +1,67 @@
-[gd_scene load_steps=17 format=3 uid="uid://dy3xu2a06aii6"]
+[gd_scene load_steps=21 format=3 uid="uid://dy3xu2a06aii6"]
 
 [ext_resource type="Texture2D" uid="uid://idxd1a4wlicp" path="res://sprites/characters/Standard Shadow.png" id="1_sbnkq"]
 [ext_resource type="Texture2D" uid="uid://cdewc5j6cxgs" path="res://sprites/characters/skeleton/Skeleton modified.png" id="2_c7473"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ignw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gy5b1"]
 atlas = ExtResource("2_c7473")
 region = Rect2(26, 72, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh3dh"]
+atlas = ExtResource("2_c7473")
+region = Rect2(26, 108, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2vut"]
+atlas = ExtResource("2_c7473")
+region = Rect2(26, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jtcp"]
+atlas = ExtResource("2_c7473")
+region = Rect2(26, 36, 26, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uc0jy"]
 atlas = ExtResource("2_c7473")
 region = Rect2(0, 72, 26, 36)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ignw"]
+atlas = ExtResource("2_c7473")
+region = Rect2(26, 72, 26, 36)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_48ciw"]
 atlas = ExtResource("2_c7473")
 region = Rect2(52, 72, 26, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bjbcw"]
-atlas = ExtResource("2_c7473")
-region = Rect2(26, 108, 26, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_woeur"]
 atlas = ExtResource("2_c7473")
 region = Rect2(0, 108, 26, 36)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjbcw"]
+atlas = ExtResource("2_c7473")
+region = Rect2(26, 108, 26, 36)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_5kgld"]
 atlas = ExtResource("2_c7473")
 region = Rect2(52, 108, 26, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yp1yd"]
-atlas = ExtResource("2_c7473")
-region = Rect2(26, 0, 26, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p87j3"]
 atlas = ExtResource("2_c7473")
 region = Rect2(0, 0, 26, 36)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_yp1yd"]
+atlas = ExtResource("2_c7473")
+region = Rect2(26, 0, 26, 36)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_dvn0m"]
 atlas = ExtResource("2_c7473")
 region = Rect2(52, 0, 26, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ovamp"]
-atlas = ExtResource("2_c7473")
-region = Rect2(26, 36, 26, 36)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_2rtb4"]
 atlas = ExtResource("2_c7473")
 region = Rect2(0, 36, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovamp"]
+atlas = ExtResource("2_c7473")
+region = Rect2(26, 36, 26, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20kd3"]
 atlas = ExtResource("2_c7473")
@@ -55,8 +71,37 @@ region = Rect2(52, 36, 26, 36)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4ignw")
+"texture": SubResource("AtlasTexture_gy5b1")
+}],
+"loop": true,
+"name": &"s idle e",
+"speed": 5.0
 }, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh3dh")
+}],
+"loop": true,
+"name": &"s idle n",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2vut")
+}],
+"loop": true,
+"name": &"s idle s",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jtcp")
+}],
+"loop": true,
+"name": &"s idle w",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uc0jy")
 }, {
@@ -65,15 +110,15 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_48ciw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ignw")
 }],
 "loop": true,
 "name": &"skeleton move east",
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bjbcw")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_woeur")
 }, {
@@ -82,15 +127,15 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5kgld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjbcw")
 }],
 "loop": true,
 "name": &"skeleton move north",
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yp1yd")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_p87j3")
 }, {
@@ -99,15 +144,15 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dvn0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yp1yd")
 }],
 "loop": true,
 "name": &"skeleton move south",
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ovamp")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2rtb4")
 }, {
@@ -116,6 +161,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_20kd3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovamp")
 }],
 "loop": true,
 "name": &"skeleton move west",
@@ -136,7 +184,7 @@ texture = ExtResource("1_sbnkq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SkeletonEnemy"]
 sprite_frames = SubResource("SpriteFrames_rgr8w")
-animation = &"skeleton move south"
+animation = &"s idle e"
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 
