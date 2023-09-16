@@ -10,6 +10,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#print(Input.is_action_pressed("play_west"))
+	#expand to detect and swithc between game pad inputs and keyboard inputs dynamically later
 	move_direction = Input.get_vector("play_west", "play_east", "play_north", "play_south")
 	is_sprinting = Input.is_action_pressed("play_sprint")

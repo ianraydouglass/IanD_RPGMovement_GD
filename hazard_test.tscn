@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://xp8r7845v611"]
+
+[ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="1_eb4ay"]
+[ext_resource type="Script" path="res://HazardArea.gd" id="2_txret"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxg52"]
+atlas = ExtResource("1_eb4ay")
+region = Rect2(288, 144, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4dnlm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxg52")
+}],
+"loop": true,
+"name": &"spike",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4240f"]
+size = Vector2(15, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h6vtk"]
+size = Vector2(17, 14)
+
+[node name="HazardTest" type="StaticBody2D"]
+position = Vector2(258, 191)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4dnlm")
+animation = &"spike"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_4240f")
+
+[node name="HazardArea" type="Area2D" parent="."]
+script = ExtResource("2_txret")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_h6vtk")

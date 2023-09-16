@@ -3,8 +3,8 @@ extends CharacterBody2D
 var input_manager
 
 #movement speed and multiplier applied when sprinting
-var speed: float = 100
-var sprint_multi: float = 2
+const speed: float = 100
+const sprint_multi: float = 2
 #something that can halt the player if needed
 var can_move: bool = true
 #a variable that tracks if the player is moving via input currently for animation
@@ -22,12 +22,21 @@ var walk_id = "player "
 
 var sprite_animator
 
+const max_health: int = 5
+var current_health: int
+
+var is_invulnerable: bool = false
+const invulnerability_time = 2
+var i_timer
+
 func _ready():
 	#get a reference to the input manager
 	input_manager = $"../InputManager"
 	player_sprite = $PlayerCharacter/PlayerCharacterSprite
 	player_sprite.play("p idle s")
 	sprite_animator = $PlayerCharacter/PlayerCharacterSprite/SpriteAnimator
+	change_health(max_health)
+	i_timer = $ITimer
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -113,3 +122,68 @@ func play_walk_x(v: float):
 	else:
 		return "east"
 		
+func change_health(h: int):
+	if current_health == h:
+		return
+	if current_health < h:
+		#do animations based on damage
+		current_health = h
+		print("health is now " + str(current_health))
+		pass
+	if current_health > h:
+		#do animations based on heal
+		current_health = h
+		print("health is now " + str(current_health))
+		pass
+	pass
+
+func take_damage(d: int):
+	if is_invulnerable:
+		print("damage not dealt due to invulnerable")
+		return
+	if d < 0:
+		print("damage value can not be negative")
+		return
+	if is_player_dead():
+		print("player is dead and can't take damage")
+		return
+	var new_health = current_health - d
+	if new_health <= 0:
+		change_health(0)
+		#damage routine
+		#death routine
+		print("character is dead")
+	else:
+		invulnerable_start()
+		change_health(new_health)
+		#damage routine
+
+func invulnerable_start():
+	if is_invulnerable:
+		return
+	is_invulnerable = true
+	i_timer.set_wait_time(invulnerability_time)
+	i_timer.start()
+	
+func invulnerable_end():
+	is_invulnerable = false
+
+func is_player_dead():
+	var verdict: bool = false
+	if current_health <= 0:
+		verdict = true
+	return verdict
+
+func heal_damage(h: int):
+	if h < 0:
+		print("healing can not be negative")
+	var new_health = current_health + h
+	if new_health > max_health:
+		new_health = max_health
+	change_health(new_health)
+	#healing routine
+
+
+func _on_i_timer_timeout():
+	print("invulnerable ended")
+	invulnerable_end()

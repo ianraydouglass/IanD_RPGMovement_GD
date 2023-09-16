@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cfe4gkd7hbca5"]
+[gd_scene load_steps=36 format=3 uid="uid://cfe4gkd7hbca5"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_6ieus"]
 [ext_resource type="Texture2D" uid="uid://idxd1a4wlicp" path="res://sprites/characters/Standard Shadow.png" id="1_kmkhi"]
@@ -265,6 +265,10 @@ animations = [{
 radius = 3.0
 height = 13.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vwscm"]
+radius = 4.0
+height = 16.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_6ieus")
 
@@ -284,3 +288,15 @@ script = ExtResource("4_ylm11")
 position = Vector2(-0.5, 14)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_84kls")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 14)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_vwscm")
+
+[node name="ITimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ITimer" to="." method="_on_i_timer_timeout"]
