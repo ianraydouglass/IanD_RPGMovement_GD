@@ -1,7 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://dy3xu2a06aii6"]
+[gd_scene load_steps=23 format=3 uid="uid://dy3xu2a06aii6"]
 
+[ext_resource type="Script" path="res://scenes/enemy.gd" id="1_kwkcg"]
 [ext_resource type="Texture2D" uid="uid://idxd1a4wlicp" path="res://sprites/characters/Standard Shadow.png" id="1_sbnkq"]
 [ext_resource type="Texture2D" uid="uid://cdewc5j6cxgs" path="res://sprites/characters/skeleton/Skeleton modified.png" id="2_c7473"]
+[ext_resource type="Script" path="res://scenes/SpriteAnimator.gd" id="4_xtlmb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gy5b1"]
 atlas = ExtResource("2_c7473")
@@ -174,8 +176,9 @@ animations = [{
 radius = 3.0
 height = 16.0
 
-[node name="Enemy" type="Node2D"]
+[node name="Skeleton_Enemy" type="CharacterBody2D"]
 position = Vector2(62, 0)
+script = ExtResource("1_kwkcg")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 texture = ExtResource("1_sbnkq")
@@ -186,9 +189,10 @@ texture = ExtResource("1_sbnkq")
 sprite_frames = SubResource("SpriteFrames_rgr8w")
 animation = &"s idle e"
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="SpriteAnimator" type="Node2D" parent="SkeletonEnemy/AnimatedSprite2D"]
+script = ExtResource("4_xtlmb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 14)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dtovc")

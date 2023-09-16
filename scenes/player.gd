@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 var input_manager
 
@@ -11,7 +11,7 @@ var can_move: bool = true
 var is_moving: bool = false
 #the directiont the player is actually moving, not just the input direction
 var true_direction: Vector2 = Vector2(0,0)
-# Called when the node enters the scene tree for the first time.
+
 var player_sprite
 
 var current_direction = "none"
@@ -41,7 +41,8 @@ func _process(delta):
 			is_moving = true
 		else:
 			is_moving = false
-		position += input_manager.move_direction * current_speed * delta
+		velocity = input_manager.move_direction * current_speed
+		move_and_slide()
 		set_true_direction()
 	else:
 		#we want to make extra sure that the player doesn't forget that they aren't moving
