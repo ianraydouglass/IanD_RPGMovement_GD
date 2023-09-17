@@ -41,3 +41,6 @@ script = ExtResource("2_txret")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea"]
 position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_h6vtk")
+
+[node name="PositionAnchor" type="Node2D" parent="."]
+position = Vector2(0.5, 1)

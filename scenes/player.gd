@@ -4,7 +4,11 @@ var input_manager
 
 #movement speed and multiplier applied when sprinting
 const speed: float = 100
-const sprint_multi: float = 2
+const sprint_multi: float = 1.5
+
+#read by area 2d scripts to ensure they are hitting the right thing
+const character_type = "player"
+
 #something that can halt the player if needed
 var can_move: bool = true
 #a variable that tracks if the player is moving via input currently for animation
@@ -22,12 +26,26 @@ var walk_id = "player "
 
 var sprite_animator
 
+var position_anchor
+
 const max_health: int = 5
 var current_health: int
 
 var is_invulnerable: bool = false
-const invulnerability_time = 2
+const invulnerability_time = 1.5
 var i_timer
+
+var is_knocked_back: bool = false
+const knock_back_time: float = 0.15
+const knock_back_speed: float = 300
+var knock_back_vector: Vector2
+#use friction later to decelerate the knockback
+const knock_back_friction: float = 0.2
+var k_timer
+
+const blink_time: float = 0.1
+var blink_state: bool = true
+var b_timer
 
 func _ready():
 	#get a reference to the input manager
@@ -37,27 +55,40 @@ func _ready():
 	sprite_animator = $PlayerCharacter/PlayerCharacterSprite/SpriteAnimator
 	change_health(max_health)
 	i_timer = $ITimer
+	k_timer = $KTimer
+	b_timer = $BTimer
+	position_anchor = $PositionAnchor
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#move the player based on speed, input, and sprint multiplier
-	var current_speed: float = speed
-	if input_manager.is_sprinting:
-		current_speed = speed * sprint_multi
-	if can_move:
-		if input_manager.move_direction != Vector2(0,0):
-			is_moving = true
-		else:
-			is_moving = false
-		velocity = input_manager.move_direction * current_speed
-		move_and_slide()
-		set_true_direction()
+	if can_move and !is_knocked_back:
+		move_player(delta)
+	elif is_knocked_back:
+		knock_back_player(delta)
 	else:
 		#we want to make extra sure that the player doesn't forget that they aren't moving
 		is_moving = false
 		set_true_direction()
 		
+#this will be used when the player is voluntarally moving
+func move_player(delta):
+	#move the player based on speed, input, and sprint multiplier
+	var current_speed: float = speed
+	if input_manager.is_sprinting:
+		current_speed = speed * sprint_multi
+	if input_manager.move_direction != Vector2(0,0):
+		is_moving = true
+	else:
+		is_moving = false
+	velocity = input_manager.move_direction * current_speed
+	move_and_slide()
+	set_true_direction()
+
+#this will be used instead of move to process knockback
+func knock_back_player(delta):
+	velocity = knock_back_vector * knock_back_speed
+	move_and_slide()
 
 func freeze_player():
 	can_move = false
@@ -137,15 +168,16 @@ func change_health(h: int):
 		pass
 	pass
 
-func take_damage(d: int):
+#d is the damage, s is the source's position
+func take_damage(d: int, s: Vector2, snap: bool):
 	if is_invulnerable:
-		print("damage not dealt due to invulnerable")
+		#print("damage not dealt due to invulnerable")
 		return
 	if d < 0:
 		print("damage value can not be negative")
 		return
 	if is_player_dead():
-		print("player is dead and can't take damage")
+		#print("player is dead and can't take damage")
 		return
 	var new_health = current_health - d
 	if new_health <= 0:
@@ -156,7 +188,41 @@ func take_damage(d: int):
 	else:
 		invulnerable_start()
 		change_health(new_health)
+		#if we want to snap the pushback direction to an axis
+		if snap:
+			var push_direction = position_anchor.global_position - s
+			push_direction = push_direction.normalized()
+			var x_comp = push_direction.x
+			var y_comp = push_direction.y
+			#figure out which component of the vector is stronger
+			if x_comp < 0:
+				x_comp = x_comp * -1
+			if y_comp < 0:
+				y_comp = y_comp * -1
+			if y_comp > x_comp:
+				push_direction.x = 0
+			else:
+				push_direction.y = 0
+			knock_back_start(push_direction.normalized())
+		#otherwise we want to push the player directly away from the source
+		else:
+			
+			var push_direction = position_anchor.global_position - s
+			knock_back_start(push_direction.normalized())
 		#damage routine
+
+func knock_back_start(v: Vector2):
+	if is_knocked_back:
+		return
+	knock_back_vector = v
+	is_knocked_back = true
+	k_timer.set_wait_time(knock_back_time)
+	k_timer.start()
+	
+func knock_back_end():
+	if !is_knocked_back:
+		return
+	is_knocked_back = false
 
 func invulnerable_start():
 	if is_invulnerable:
@@ -164,9 +230,15 @@ func invulnerable_start():
 	is_invulnerable = true
 	i_timer.set_wait_time(invulnerability_time)
 	i_timer.start()
+	b_timer.set_wait_time(blink_time)
+	b_timer.start()
+	
 	
 func invulnerable_end():
 	is_invulnerable = false
+	b_timer.stop()
+	blink_state = true
+	sprite_animator.blink_state(true)
 
 func is_player_dead():
 	var verdict: bool = false
@@ -182,8 +254,23 @@ func heal_damage(h: int):
 		new_health = max_health
 	change_health(new_health)
 	#healing routine
-
+func toggle_blink():
+	if blink_state:
+		sprite_animator.blink_state(false)
+		blink_state = false
+	else:
+		sprite_animator.blink_state(true)
+		blink_state = true
 
 func _on_i_timer_timeout():
 	print("invulnerable ended")
 	invulnerable_end()
+
+
+
+func _on_k_timer_timeout():
+	knock_back_end()
+
+
+func _on_b_timer_timeout():
+	toggle_blink()

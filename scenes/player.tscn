@@ -299,4 +299,14 @@ shape = SubResource("CapsuleShape2D_vwscm")
 [node name="ITimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="KTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="BTimer" type="Timer" parent="."]
+
+[node name="PositionAnchor" type="Node2D" parent="."]
+position = Vector2(-0.5, 14)
+
 [connection signal="timeout" from="ITimer" to="." method="_on_i_timer_timeout"]
+[connection signal="timeout" from="KTimer" to="." method="_on_k_timer_timeout"]
+[connection signal="timeout" from="BTimer" to="." method="_on_b_timer_timeout"]

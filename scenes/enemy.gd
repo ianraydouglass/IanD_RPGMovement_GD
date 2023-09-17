@@ -5,6 +5,9 @@ extends CharacterBody2D
 var speed: float = 100
 var sprint_multi: float = 2
 
+#read by area 2d scripts to ensure they are hitting the right thing
+const character_type = "enemy"
+
 #the directiont the enemy is actually moving
 var true_direction: Vector2 = Vector2(0,0)
 

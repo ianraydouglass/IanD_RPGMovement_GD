@@ -10,7 +10,11 @@ func _ready():
 
 
 
-
+func blink_state(o: bool):
+	if o:
+		character_sprite.modulate.a = 1
+	else:
+		character_sprite.modulate.a = 0
 #the character or enemy will call one of these functions passing a float
 func play_idle_y(v: float):
 	if v <= 0:
