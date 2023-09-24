@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://vpxweskrwh73"]
+[gd_scene load_steps=8 format=3 uid="uid://vpxweskrwh73"]
 
 [ext_resource type="Script" path="res://scenes/GameManager.gd" id="1_7dhik"]
 [ext_resource type="Script" path="res://scenes/InputManager.gd" id="1_8wjte"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cfe4gkd7hbca5" path="res://scenes/player.tscn" id="2_nm1ul"]
 [ext_resource type="PackedScene" uid="uid://dy3xu2a06aii6" path="res://scenes/enemy.tscn" id="3_suo2w"]
 [ext_resource type="PackedScene" uid="uid://xp8r7845v611" path="res://hazard_test.tscn" id="5_bhkis"]
+[ext_resource type="PackedScene" uid="uid://dr1wd31ficy1e" path="res://life_display.tscn" id="7_tyx3t"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_7dhik")
@@ -27,3 +28,7 @@ position = Vector2(336, 195)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(259, 142)
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+
+[node name="LifeDisplay" parent="HUDLayer" instance=ExtResource("7_tyx3t")]

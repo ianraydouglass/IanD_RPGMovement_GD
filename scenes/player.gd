@@ -47,6 +47,8 @@ const blink_time: float = 0.1
 var blink_state: bool = true
 var b_timer
 
+var life_object
+
 func _ready():
 	#get a reference to the input manager
 	input_manager = $"../InputManager"
