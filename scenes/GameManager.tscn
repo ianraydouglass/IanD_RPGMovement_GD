@@ -32,3 +32,4 @@ position = Vector2(259, 142)
 [node name="HUDLayer" type="CanvasLayer" parent="."]
 
 [node name="LifeDisplay" parent="HUDLayer" instance=ExtResource("7_tyx3t")]
+position = Vector2(20, 24)

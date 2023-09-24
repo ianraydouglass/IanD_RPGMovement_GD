@@ -8,22 +8,60 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+
+func life_change(v: int):
+	current_health = v
+	update_life_tree()
 
 func update_life_tree():
-	if current_health >= 5:
-		pass
-	if current_health == 4:
-		pass
-	if current_health == 3:
-		pass
-	if current_health == 2:
-		pass
-	if current_health == 1:
-		pass
-	if current_health <= 0:
-		pass
-	animation_tree["parameters/conditions/current_life < 1"]
-	pass
+	if current_health < 5:
+		animation_tree["parameters/conditions/current_life < 5"] = true
+	else:
+		animation_tree["parameters/conditions/current_life < 5"] = false
+		
+	if current_health < 4:
+		animation_tree["parameters/conditions/current_life < 4"] = true
+	else:
+		animation_tree["parameters/conditions/current_life < 4"] = false
+		
+	if current_health < 3:
+		animation_tree["parameters/conditions/current_life < 3"] = true
+	else:
+		animation_tree["parameters/conditions/current_life < 3"] = false
+		
+	if current_health < 2:
+		animation_tree["parameters/conditions/current_life < 2"] = true
+	else:
+		animation_tree["parameters/conditions/current_life < 2"] = false
+		
+	if current_health < 1:
+		animation_tree["parameters/conditions/current_life < 1"] = true
+	else:
+		animation_tree["parameters/conditions/current_life < 1"] = false
+		
+	if current_health > 0:
+		animation_tree["parameters/conditions/current_life > 0"] = true
+	else:
+		animation_tree["parameters/conditions/current_life > 0"] = false
+		
+	if current_health > 1:
+		animation_tree["parameters/conditions/current_life > 1"] = true
+	else:
+		animation_tree["parameters/conditions/current_life > 1"] = false
+		
+	if current_health > 2:
+		animation_tree["parameters/conditions/current_life > 2"] = true
+	else:
+		animation_tree["parameters/conditions/current_life > 2"] = false
+		
+	if current_health > 3:
+		animation_tree["parameters/conditions/current_life > 3"] = true
+	else:
+		animation_tree["parameters/conditions/current_life > 3"] = false
+		
+	if current_health > 4:
+		animation_tree["parameters/conditions/current_life > 4"] = true
+	else:
+		animation_tree["parameters/conditions/current_life > 4"] = false
+		
+	

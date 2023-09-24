@@ -47,6 +47,7 @@ const blink_time: float = 0.1
 var blink_state: bool = true
 var b_timer
 
+#reference to the LifeDisplay scene in the hud
 var life_object
 
 func _ready():
@@ -168,6 +169,8 @@ func change_health(h: int):
 		current_health = h
 		print("health is now " + str(current_health))
 		pass
+	if life_object != null:
+		life_object.life_change(h)
 	pass
 
 #d is the damage, s is the source's position
