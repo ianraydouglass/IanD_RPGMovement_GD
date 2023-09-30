@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 var input_manager
 
+var game_manager
+
 #movement speed and multiplier applied when sprinting
 const speed: float = 100
 const sprint_multi: float = 1.5
@@ -51,6 +53,7 @@ var b_timer
 var life_object
 
 func _ready():
+	game_manager = $".."
 	#get a reference to the input manager
 	input_manager = $"../InputManager"
 	player_sprite = $PlayerCharacter/PlayerCharacterSprite
@@ -188,8 +191,7 @@ func take_damage(d: int, s: Vector2, snap: bool):
 	if new_health <= 0:
 		change_health(0)
 		#damage routine
-		#death routine
-		print("character is dead")
+		kill_player()
 	else:
 		invulnerable_start()
 		change_health(new_health)
@@ -266,6 +268,17 @@ func toggle_blink():
 	else:
 		sprite_animator.blink_state(true)
 		blink_state = true
+
+func kill_player():
+	print("player is dead")
+	revive_player()
+	pass
+
+func revive_player():
+	invulnerable_start()
+	change_health(5)
+	self.global_transform = game_manager.check_point_manager.respawn_location
+	pass
 
 func _on_i_timer_timeout():
 	print("invulnerable ended")

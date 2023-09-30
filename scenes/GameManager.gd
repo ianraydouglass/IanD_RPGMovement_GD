@@ -5,13 +5,20 @@ var main_camera
 var life_object
 const camera_speed = 4.0
 var follow_player: bool = false
+var check_point_manager
+var world_manager
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player_object = $Player
 	main_camera = $Camera2D
 	life_object = $HUDLayer/LifeDisplay
 	player_object.life_object = life_object
-	
+	check_point_manager = $CheckPointManager
+	check_point_manager.game_manager = self
+	world_manager = $World
+	world_manager.game_manager = self
+	#do level setup
+	world_manager.get_region_check_points()
 	follow_player = true
 
 

@@ -1,9 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b56joj1hll2ds"]
+[gd_scene load_steps=6 format=3 uid="uid://cofiy38q3t8xm"]
 
-[ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="1_fvb3t"]
+[ext_resource type="Script" path="res://scenes/Region.gd" id="1_8fkni"]
+[ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="2_vxucw"]
+[ext_resource type="PackedScene" uid="uid://cbx7ex3pjdxi6" path="res://scenes/check_point.tscn" id="3_ge5bd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p2c7q"]
-texture = ExtResource("1_fvb3t")
+texture = ExtResource("2_vxucw")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -486,9 +488,12 @@ texture = ExtResource("1_fvb3t")
 [sub_resource type="TileSet" id="TileSet_pxdqy"]
 sources/0 = SubResource("TileSetAtlasSource_p2c7q")
 
-[node name="DebugArea" type="Node2D"]
+[node name="DebugLevel" type="Node2D"]
+script = ExtResource("1_8fkni")
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="DebugArea" type="Node2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="DebugArea"]
 tile_set = SubResource("TileSet_pxdqy")
 format = 2
 layer_0/name = "Base layer"
@@ -500,3 +505,11 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
+
+[node name="CheckPoint" parent="." instance=ExtResource("3_ge5bd")]
+position = Vector2(42, 38)
+check_point_code = "debug"
+
+[node name="CheckPoint2" parent="." instance=ExtResource("3_ge5bd")]
+position = Vector2(43, 273)
+check_point_code = "debug2"

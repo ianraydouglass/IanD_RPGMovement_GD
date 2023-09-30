@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://xp8r7845v611"]
 
-[ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="1_eb4ay"]
-[ext_resource type="Script" path="res://HazardArea.gd" id="2_txret"]
+[ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="1_hle62"]
+[ext_resource type="Script" path="res://scenes/HazardArea.gd" id="2_yvifd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qxg52"]
-atlas = ExtResource("1_eb4ay")
+atlas = ExtResource("1_hle62")
 region = Rect2(288, 144, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4dnlm"]
@@ -36,7 +36,7 @@ position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_4240f")
 
 [node name="HazardArea" type="Area2D" parent="."]
-script = ExtResource("2_txret")
+script = ExtResource("2_yvifd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea"]
 position = Vector2(0.5, 1)

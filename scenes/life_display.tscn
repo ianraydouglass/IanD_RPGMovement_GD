@@ -1,6 +1,6 @@
 [gd_scene load_steps=59 format=3 uid="uid://dr1wd31ficy1e"]
 
-[ext_resource type="Script" path="res://life_display.gd" id="1_ghvai"]
+[ext_resource type="Script" path="res://scenes/life_display.gd" id="1_ghvai"]
 [ext_resource type="Texture2D" uid="uid://dnlsh1itm1nbg" path="res://sprites/ui/Life Tablet.png" id="1_nuf5e"]
 
 [sub_resource type="Animation" id="Animation_dqxcq"]

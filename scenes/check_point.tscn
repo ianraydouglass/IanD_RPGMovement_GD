@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbx7ex3pjdxi6"]
+
+[ext_resource type="Script" path="res://scenes/check_point.gd" id="1_fk5sr"]
+[ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="2_7mg70"]
+[ext_resource type="Script" path="res://scenes/CheckPointArea.gd" id="3_ghp45"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p2pri"]
+size = Vector2(16, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5g4f2"]
+size = Vector2(52, 52)
+
+[node name="CheckPoint" type="StaticBody2D"]
+script = ExtResource("1_fk5sr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_7mg70")
+hframes = 30
+vframes = 16
+frame = 147
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_p2pri")
+
+[node name="CheckPointArea" type="Area2D" parent="."]
+script = ExtResource("3_ghp45")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPointArea"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_5g4f2")
+debug_color = Color(0.290196, 0.615686, 0.396078, 0.419608)
+
+[node name="SpawnAnchor" type="Node2D" parent="."]
+position = Vector2(0, 20)
