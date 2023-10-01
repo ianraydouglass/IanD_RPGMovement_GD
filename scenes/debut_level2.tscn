@@ -1,12 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cofiy38q3t8xm"]
+[gd_scene load_steps=7 format=3 uid="uid://btkqlib3b7hb5"]
 
-[ext_resource type="Script" path="res://scenes/Region.gd" id="1_8fkni"]
-[ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="2_vxucw"]
-[ext_resource type="PackedScene" uid="uid://cbx7ex3pjdxi6" path="res://scenes/check_point.tscn" id="3_ge5bd"]
-[ext_resource type="PackedScene" uid="uid://bxmt8mx6ifdiw" path="res://scenes/stairs.tscn" id="4_oyvia"]
+[ext_resource type="Script" path="res://scenes/Region.gd" id="1_jba38"]
+[ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="2_g8nkv"]
+[ext_resource type="PackedScene" uid="uid://cbx7ex3pjdxi6" path="res://scenes/check_point.tscn" id="3_lskq1"]
+[ext_resource type="PackedScene" uid="uid://bxmt8mx6ifdiw" path="res://scenes/stairs.tscn" id="4_3mgd4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p2c7q"]
-texture = ExtResource("2_vxucw")
+texture = ExtResource("2_g8nkv")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -489,8 +489,8 @@ texture = ExtResource("2_vxucw")
 [sub_resource type="TileSet" id="TileSet_pxdqy"]
 sources/0 = SubResource("TileSetAtlasSource_p2c7q")
 
-[node name="DebugLevel" type="Node2D"]
-script = ExtResource("1_8fkni")
+[node name="DebugLevel2" type="Node2D"]
+script = ExtResource("1_jba38")
 exit_points = [NodePath("Stairs")]
 
 [node name="DebugArea" type="Node2D" parent="."]
@@ -508,14 +508,13 @@ layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
 
-[node name="CheckPoint" parent="." instance=ExtResource("3_ge5bd")]
+[node name="CheckPoint" parent="." instance=ExtResource("3_lskq1")]
 position = Vector2(42, 38)
-check_point_code = "debug"
+check_point_code = "debug2-1"
 
-[node name="CheckPoint2" parent="." instance=ExtResource("3_ge5bd")]
+[node name="CheckPoint2" parent="." instance=ExtResource("3_lskq1")]
 position = Vector2(43, 273)
-check_point_code = "debug2"
+check_point_code = "debug2-2"
 
-[node name="Stairs" parent="." instance=ExtResource("4_oyvia")]
-position = Vector2(662, 168)
-next_scene_index = 1
+[node name="Stairs" parent="." instance=ExtResource("4_3mgd4")]
+position = Vector2(122, 168)

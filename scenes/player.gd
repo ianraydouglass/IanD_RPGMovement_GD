@@ -277,7 +277,7 @@ func kill_player():
 func revive_player():
 	invulnerable_start()
 	change_health(5)
-	self.global_transform = game_manager.check_point_manager.respawn_location
+	game_manager.check_point_manager.respawn_to_world()
 	pass
 
 func _on_i_timer_timeout():

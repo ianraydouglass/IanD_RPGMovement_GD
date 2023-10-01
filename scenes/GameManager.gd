@@ -17,8 +17,7 @@ func _ready():
 	check_point_manager.game_manager = self
 	world_manager = $World
 	world_manager.game_manager = self
-	#do level setup
-	world_manager.get_region_check_points()
+	world_manager.first_time_setup()
 	follow_player = true
 
 
