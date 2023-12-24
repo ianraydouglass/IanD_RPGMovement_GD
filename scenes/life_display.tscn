@@ -471,6 +471,7 @@ script = ExtResource("1_ghvai")
 texture = ExtResource("1_nuf5e")
 hframes = 6
 vframes = 5
+frame = 5
 
 [node name="LifePlayer" type="AnimationPlayer" parent="."]
 libraries = {
