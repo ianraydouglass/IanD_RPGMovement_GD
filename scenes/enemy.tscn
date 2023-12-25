@@ -183,7 +183,7 @@ radius = 5.0
 height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j355"]
-size = Vector2(20, 64)
+size = Vector2(92, 20)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_a68y5"]
 
@@ -221,19 +221,23 @@ shape = SubResource("CapsuleShape2D_vt1lg")
 position = Vector2(0, 15)
 
 [node name="DetectionZone" type="Area2D" parent="."]
-position = Vector2(0, 14)
+position = Vector2(0, 15)
 script = ExtResource("6_areqs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
-position = Vector2(0, -29)
+position = Vector2(36, 0)
 shape = SubResource("RectangleShape2D_4j355")
 
 [node name="Sprite2D" type="Sprite2D" parent="DetectionZone"]
-position = Vector2(0, -43)
-scale = Vector2(20, 36)
+position = Vector2(46, -7.15256e-07)
+scale = Vector2(72, 20)
 texture = SubResource("CanvasTexture_a68y5")
 
 [node name="GTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="DTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="GTimer" to="." method="_on_g_timer_timeout"]
+[connection signal="timeout" from="DTimer" to="." method="_on_d_timer_timeout"]

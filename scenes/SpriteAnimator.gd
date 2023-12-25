@@ -44,3 +44,35 @@ func play_walk(d):
 		character_sprite.play(character_script.walk_id + "west")
 	if d == "east":
 		character_sprite.play(character_script.walk_id + "east")
+
+func play_walk_from_vector(d):
+	if d == Vector2(0,0):
+		return
+	if d == Vector2(1,0):
+		character_sprite.play(character_script.walk_id + "east")
+		return
+	if d == Vector2(-1,0):
+		character_sprite.play(character_script.walk_id + "west")
+		return
+	if d == Vector2(0,1):
+		character_sprite.play(character_script.walk_id + "south")
+		return
+	if d == Vector2(0,-1):
+		character_sprite.play(character_script.walk_id + "north")
+		return
+
+func play_idle_from_vector(d):
+	if d == Vector2(0,0):
+		return
+	if d == Vector2(1,0):
+		character_sprite.play(character_script.idle_id + "e")
+		return
+	if d == Vector2(-1,0):
+		character_sprite.play(character_script.idle_id + "w")
+		return
+	if d == Vector2(0,1):
+		character_sprite.play(character_script.idle_id + "s")
+		return
+	if d == Vector2(0,-1):
+		character_sprite.play(character_script.idle_id + "n")
+		return

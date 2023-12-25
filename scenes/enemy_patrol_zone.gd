@@ -5,13 +5,14 @@ var current_target_index
 @export var this_enemy: CharacterBody2D
 var character_type = "patrol zone"
 var player_object
-const pursuit_distance: float = 150
+var center_point
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	current_target_index = 0
 	set_patrol_points()
 	set_enemy_reference()
+	center_point = get_center_point()
 	
 	
 
@@ -46,5 +47,34 @@ func patrol_point_reached(p: int):
 	this_enemy.set_mode_state("patrol")#if they were in return mode, we want them in patrol mode now
 	return
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func get_center_point():
+	var output_position: Vector2 = Vector2(0,0)
+	if all_patrol_points.size() == 0:
+		return output_position
+	for i in all_patrol_points.size():
+		output_position += all_patrol_points[i].global_position
+	output_position = output_position / all_patrol_points.size()
+	return output_position
+
+func get_nearest_point(p):
+	var output_position: Vector2 = Vector2(0,0)
+	var current_dist: float = -1
+	if all_patrol_points.size() == 0:
+		return output_position
+	for i in all_patrol_points.size():
+		var relative_dist: float = all_patrol_points[i].global_position.distance_to(p)
+		if current_dist == -1 || relative_dist < current_dist:
+			output_position = all_patrol_points[i].global_position
+			current_dist = relative_dist
+	return output_position
+
+func is_point_within_zone(p):
+	var verdict = false
+	if all_patrol_points.size() == 0:
+		return verdict
+	var near_point = get_nearest_point(p)
+	var near_dist = near_point.distance_to(center_point)
+	var center_dist = center_point.distance_to(p)
+	if center_dist < near_dist:
+		verdict = true
+	return verdict
