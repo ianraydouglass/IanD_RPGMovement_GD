@@ -270,6 +270,7 @@ radius = 4.0
 height = 16.0
 
 [node name="Player" type="CharacterBody2D"]
+platform_floor_layers = 4294901760
 script = ExtResource("1_6ieus")
 
 [node name="Shadow" type="Sprite2D" parent="."]
