@@ -37,6 +37,7 @@ var walk_id = "skeleton move "
 var is_moving = false
 
 var sprite_animator
+var emote_animator
 
 var position_anchor
 
@@ -45,6 +46,7 @@ var look_direction: Vector2 = Vector2(0,0)
 var detection_area
 
 func _ready():
+	emote_animator = $Emote
 	sprite_animator = $SkeletonEnemy/AnimatedSprite2D/SpriteAnimator
 	enemy_sprite = $SkeletonEnemy/AnimatedSprite2D
 	position_anchor = $PositionAnchor
@@ -124,6 +126,9 @@ func set_mode_state(m):
 	if mode_state != m:
 		print("mode state change from " + mode_state + " to " + m)
 		mode_state = m
+		if emote_animator == null:
+			return
+		emote_animator.mode_change(m)
 
 func can_pursue():
 	var verdict = false

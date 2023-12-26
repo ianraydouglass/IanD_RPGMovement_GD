@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dy3xu2a06aii6"]
+[gd_scene load_steps=43 format=3 uid="uid://dy3xu2a06aii6"]
 
 [ext_resource type="Script" path="res://scenes/enemy.gd" id="1_kwkcg"]
 [ext_resource type="Texture2D" uid="uid://idxd1a4wlicp" path="res://sprites/characters/Standard Shadow.png" id="1_sbnkq"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scenes/SpriteAnimator.gd" id="4_xtlmb"]
 [ext_resource type="Script" path="res://scenes/EnemyHitArea.gd" id="5_jefe3"]
 [ext_resource type="Script" path="res://scenes/DetectionZone.gd" id="6_areqs"]
+[ext_resource type="Script" path="res://scenes/Emote.gd" id="7_uc4jl"]
+[ext_resource type="Texture2D" uid="uid://dv77uum8dba7y" path="res://sprites/ui/UI_assets_modified.png" id="8_y3oro"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gy5b1"]
 atlas = ExtResource("2_c7473")
@@ -183,9 +185,100 @@ radius = 5.0
 height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j355"]
-size = Vector2(92, 20)
+size = Vector2(116, 20)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_a68y5"]
+
+[sub_resource type="Animation" id="Animation_xmbmi"]
+resource_name = "detect_emote"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EmoteSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_1yl6j"]
+resource_name = "no_emote"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EmoteSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_t7jr5"]
+resource_name = "gloat_emote"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EmoteSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 5, 4, 5, 4, 5, 4, 5, 4, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1xp8e"]
+_data = {
+"detect_emote": SubResource("Animation_xmbmi"),
+"gloat_emote": SubResource("Animation_t7jr5"),
+"no_emote": SubResource("Animation_1yl6j")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_niwu0"]
+animation = &"detect_emote"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3f7iy"]
+animation = &"gloat_emote"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j76fo"]
+animation = &"no_emote"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6lb0p"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0tfqm"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kkdrj"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6nkdv"]
+advance_mode = 2
+advance_condition = &"gloat"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qw7rh"]
+advance_mode = 2
+advance_condition = &"detect"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mksi2"]
+states/detect_emote/node = SubResource("AnimationNodeAnimation_niwu0")
+states/detect_emote/position = Vector2(543, 160)
+states/gloat_emote/node = SubResource("AnimationNodeAnimation_3f7iy")
+states/gloat_emote/position = Vector2(570, 50)
+states/no_emote/node = SubResource("AnimationNodeAnimation_j76fo")
+states/no_emote/position = Vector2(343, 100)
+transitions = ["Start", "no_emote", SubResource("AnimationNodeStateMachineTransition_6lb0p"), "gloat_emote", "no_emote", SubResource("AnimationNodeStateMachineTransition_0tfqm"), "detect_emote", "no_emote", SubResource("AnimationNodeStateMachineTransition_kkdrj"), "no_emote", "gloat_emote", SubResource("AnimationNodeStateMachineTransition_6nkdv"), "no_emote", "detect_emote", SubResource("AnimationNodeStateMachineTransition_qw7rh")]
 
 [node name="Skeleton_Enemy" type="CharacterBody2D"]
 position = Vector2(62, 0)
@@ -225,10 +318,11 @@ position = Vector2(0, 15)
 script = ExtResource("6_areqs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
-position = Vector2(36, 0)
+position = Vector2(48, 0)
 shape = SubResource("RectangleShape2D_4j355")
 
 [node name="Sprite2D" type="Sprite2D" parent="DetectionZone"]
+visible = false
 position = Vector2(46, -7.15256e-07)
 scale = Vector2(72, 20)
 texture = SubResource("CanvasTexture_a68y5")
@@ -238,6 +332,28 @@ one_shot = true
 
 [node name="DTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Emote" type="Node2D" parent="."]
+position = Vector2(0, -19)
+script = ExtResource("7_uc4jl")
+
+[node name="EmoteSprite" type="Sprite2D" parent="Emote"]
+texture = ExtResource("8_y3oro")
+hframes = 3
+vframes = 3
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Emote"]
+libraries = {
+"": SubResource("AnimationLibrary_1xp8e")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Emote"]
+tree_root = SubResource("AnimationNodeStateMachine_mksi2")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/conditions/detect = false
+parameters/conditions/gloat = false
 
 [connection signal="timeout" from="GTimer" to="." method="_on_g_timer_timeout"]
 [connection signal="timeout" from="DTimer" to="." method="_on_d_timer_timeout"]
