@@ -7,6 +7,7 @@ const camera_speed = 4.0
 var follow_player: bool = false
 var check_point_manager
 var world_manager
+var maestro
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player_object = $Player
@@ -19,6 +20,7 @@ func _ready():
 	world_manager.game_manager = self
 	world_manager.first_time_setup()
 	follow_player = true
+	maestro = %Maestro
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

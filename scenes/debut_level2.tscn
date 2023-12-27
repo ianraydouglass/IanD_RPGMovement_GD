@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://btkqlib3b7hb5"]
+[gd_scene load_steps=9 format=3 uid="uid://btkqlib3b7hb5"]
 
 [ext_resource type="Script" path="res://scenes/Region.gd" id="1_jba38"]
 [ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="2_g8nkv"]
 [ext_resource type="PackedScene" uid="uid://cbx7ex3pjdxi6" path="res://scenes/check_point.tscn" id="3_lskq1"]
 [ext_resource type="PackedScene" uid="uid://bxmt8mx6ifdiw" path="res://scenes/stairs.tscn" id="4_3mgd4"]
+[ext_resource type="Script" path="res://scenes/Performer.gd" id="5_atgil"]
+[ext_resource type="PackedScene" uid="uid://b74ll46x4j85" path="res://scenes/flame_jet.tscn" id="6_7emfy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p2c7q"]
 texture = ExtResource("2_g8nkv")
@@ -518,3 +520,13 @@ check_point_code = "debug2-2"
 
 [node name="Stairs" parent="." instance=ExtResource("4_3mgd4")]
 position = Vector2(122, 168)
+
+[node name="Performer" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("5_atgil")
+
+[node name="FlameJet" parent="Performer" instance=ExtResource("6_7emfy")]
+position = Vector2(396, 198)
+
+[node name="FlameJet2" parent="Performer" instance=ExtResource("6_7emfy")]
+position = Vector2(396, 188)

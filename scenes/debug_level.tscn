@@ -493,6 +493,7 @@ texture = ExtResource("2_vxucw")
 sources/0 = SubResource("TileSetAtlasSource_p2c7q")
 
 [node name="DebugLevel" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_8fkni")
 exit_points = [NodePath("Stairs")]
 

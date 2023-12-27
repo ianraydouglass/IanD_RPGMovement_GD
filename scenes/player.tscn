@@ -270,6 +270,7 @@ radius = 4.0
 height = 16.0
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 platform_floor_layers = 4294901760
 script = ExtResource("1_6ieus")
 
@@ -277,8 +278,10 @@ script = ExtResource("1_6ieus")
 texture = ExtResource("1_kmkhi")
 
 [node name="PlayerCharacter" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="PlayerCharacterSprite" type="AnimatedSprite2D" parent="PlayerCharacter"]
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_305d1")
 animation = &"player west"
 

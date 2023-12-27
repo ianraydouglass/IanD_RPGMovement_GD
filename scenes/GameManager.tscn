@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://vpxweskrwh73"]
+[gd_scene load_steps=10 format=3 uid="uid://vpxweskrwh73"]
 
 [ext_resource type="Script" path="res://scenes/GameManager.gd" id="1_7dhik"]
 [ext_resource type="Script" path="res://scenes/InputManager.gd" id="1_8wjte"]
@@ -8,8 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://cofiy38q3t8xm" path="res://scenes/debug_level.tscn" id="5_5n3i8"]
 [ext_resource type="PackedScene" uid="uid://xp8r7845v611" path="res://scenes/hazard_test.tscn" id="5_bhkis"]
 [ext_resource type="PackedScene" uid="uid://dr1wd31ficy1e" path="res://scenes/life_display.tscn" id="7_tyx3t"]
+[ext_resource type="Script" path="res://scenes/Maestro.gd" id="9_h6cvs"]
 
 [node name="GameManager" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_7dhik")
 
 [node name="InputManager" type="Node2D" parent="."]
@@ -19,6 +21,7 @@ script = ExtResource("1_8wjte")
 script = ExtResource("3_untad")
 
 [node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("4_f8tc1")
 
 [node name="DebugLevel" parent="World" instance=ExtResource("5_5n3i8")]
@@ -35,3 +38,7 @@ position = Vector2(259, 142)
 
 [node name="LifeDisplay" parent="HUDLayer" instance=ExtResource("7_tyx3t")]
 position = Vector2(20, 24)
+
+[node name="Maestro" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("9_h6cvs")
