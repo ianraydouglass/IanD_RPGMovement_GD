@@ -41,6 +41,10 @@ var is_knocked_back: bool = false
 const knock_back_time: float = 0.15
 const knock_back_speed: float = 300
 var knock_back_vector: Vector2
+#use for icy patches
+var ice_areas_within = []
+var slip_direction
+var rough_islands_within = []
 #use friction later to decelerate the knockback
 const knock_back_friction: float = 0.2
 var k_timer
@@ -68,10 +72,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if can_move and !is_knocked_back:
+	if can_move and !is_knocked_back and !is_slipping():
 		move_player(delta)
 	elif is_knocked_back:
 		knock_back_player(delta)
+	elif is_slipping():
+		slip_player(delta)
 	else:
 		#we want to make extra sure that the player doesn't forget that they aren't moving
 		is_moving = false
@@ -83,8 +89,9 @@ func move_player(delta):
 	var current_speed: float = speed
 	if input_manager.is_sprinting:
 		current_speed = speed * sprint_multi
-	if input_manager.move_direction != Vector2(0,0):
+	if input_manager.move_direction != Vector2(0,0) && !is_slipping():
 		is_moving = true
+		slip_direction = snap_direction(input_manager.move_direction)
 	else:
 		is_moving = false
 	velocity = input_manager.move_direction * current_speed
@@ -95,6 +102,13 @@ func move_player(delta):
 func knock_back_player(delta):
 	velocity = knock_back_vector * knock_back_speed
 	move_and_slide()
+
+func slip_player(delta):
+	velocity = speed * slip_direction
+	is_moving = false
+	move_and_slide()
+	set_true_direction()
+	pass
 
 func freeze_player():
 	can_move = false
@@ -116,6 +130,32 @@ func set_true_direction():
 			idle_to_vector(true_direction)
 		true_direction = Vector2 (0,0)
 		
+func is_slipping():#if there are no registered ice patches, we are not slipping
+	if ice_areas_within.size() == 0 || rough_islands_within.size() > 0:
+		return false
+	else:
+		return true
+
+func register_ice(x):
+	ice_areas_within.append(x)
+
+func deregister_ice(x):
+	var ice_index = -1
+	if ice_areas_within.has(x):
+		ice_index = ice_areas_within.find(x)
+	if ice_index >= 0:
+		ice_areas_within.remove_at(ice_index)
+		
+func register_island(x):
+	rough_islands_within.append(x)
+
+func deregister_island(x):
+	var island_index = -1
+	if rough_islands_within.has(x):
+		island_index = rough_islands_within.find(x)
+	if island_index >= 0:
+		rough_islands_within.remove_at(island_index)
+
 func idle_to_vector(last_direction: Vector2):
 	current_direction = "none"
 	var idle_x = last_direction.x
@@ -279,6 +319,22 @@ func revive_player():
 	change_health(5)
 	game_manager.check_point_manager.respawn_to_world()
 	pass
+
+func snap_direction(d):
+	var push_direction = d
+	push_direction = push_direction.normalized()
+	var x_comp = push_direction.x
+	var y_comp = push_direction.y
+	#figure out which component of the vector is stronger
+	if x_comp < 0:
+		x_comp = x_comp * -1
+	if y_comp < 0:
+		y_comp = y_comp * -1
+	if y_comp >= x_comp:
+		push_direction.x = 0
+	else:
+		push_direction.y = 0
+	return(push_direction.normalized())
 
 func _on_i_timer_timeout():
 	print("invulnerable ended")

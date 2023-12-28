@@ -56,7 +56,7 @@ func register_other(other):
 
 func clear_other(other):
 	var character_object = other.get_owner()
-	if character_object.character_type != "player":
+	if !character_object.has_method("move_player"):
 		return
 	is_player_within = false
 	player_object = null
