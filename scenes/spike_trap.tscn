@@ -1,0 +1,131 @@
+[gd_scene load_steps=17 format=3 uid="uid://dobwdh4w528kr"]
+
+[ext_resource type="Script" path="res://scenes/SpikeTrap.gd" id="1_5j0gb"]
+[ext_resource type="Texture2D" uid="uid://cqhcvv5wagpgj" path="res://sprites/dungeon tiles/Spike_Trap.png" id="2_qqm5u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqpo3"]
+size = Vector2(14, 14)
+
+[sub_resource type="Animation" id="Animation_ydguf"]
+resource_name = "spike_hidden"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_7c1u4"]
+resource_name = "spike_idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_lh6jg"]
+resource_name = "spike_shoot"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_icbav"]
+_data = {
+"spike_hidden": SubResource("Animation_ydguf"),
+"spike_idle": SubResource("Animation_7c1u4"),
+"spike_shoot": SubResource("Animation_lh6jg")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_101ee"]
+animation = &"spike_hidden"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pmol3"]
+animation = &"spike_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5h5t7"]
+animation = &"spike_shoot"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_624hs"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m35ai"]
+advance_mode = 2
+advance_condition = &"hide"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dphxm"]
+advance_mode = 2
+advance_condition = &"shoot"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d2bgn"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_65ywe"]
+states/spike_hidden/node = SubResource("AnimationNodeAnimation_101ee")
+states/spike_hidden/position = Vector2(479, 59)
+states/spike_idle/node = SubResource("AnimationNodeAnimation_pmol3")
+states/spike_idle/position = Vector2(378, 140)
+states/spike_shoot/node = SubResource("AnimationNodeAnimation_5h5t7")
+states/spike_shoot/position = Vector2(654, 113)
+transitions = ["Start", "spike_idle", SubResource("AnimationNodeStateMachineTransition_624hs"), "spike_idle", "spike_hidden", SubResource("AnimationNodeStateMachineTransition_m35ai"), "spike_hidden", "spike_shoot", SubResource("AnimationNodeStateMachineTransition_dphxm"), "spike_shoot", "spike_idle", SubResource("AnimationNodeStateMachineTransition_d2bgn")]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6togk"]
+size = Vector2(10, 10)
+
+[node name="SpikeTrap" type="Area2D"]
+z_index = -1
+y_sort_enabled = true
+script = ExtResource("1_5j0gb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_oqpo3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_qqm5u")
+hframes = 3
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_icbav")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_65ywe")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/conditions/hide = false
+parameters/conditions/shoot = false
+
+[node name="Position_anchor" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_6togk")

@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://c13ymclq1l0fe"]
+
+[ext_resource type="PackedScene" uid="uid://b88xhi6y36v4f" path="res://push_pot.tscn" id="1_htsus"]
+[ext_resource type="PackedScene" uid="uid://2b3w7fhjre0h" path="res://scenes/floor_switch.tscn" id="2_hilku"]
+[ext_resource type="PackedScene" uid="uid://khj6frxb84uw" path="res://scenes/floor_button.tscn" id="3_1sh2q"]
+[ext_resource type="PackedScene" uid="uid://dobwdh4w528kr" path="res://scenes/spike_trap.tscn" id="4_p65q4"]
+[ext_resource type="Script" path="res://scenes/TriggerListener.gd" id="5_jeuuu"]
+
+[node name="SpikeTest" type="Node2D"]
+
+[node name="PushPot" parent="." instance=ExtResource("1_htsus")]
+position = Vector2(191, 192)
+
+[node name="FloorSwitch" parent="." node_paths=PackedStringArray("listener") instance=ExtResource("2_hilku")]
+listener = NodePath("../TriggerListener")
+
+[node name="Floor_button" parent="." node_paths=PackedStringArray("listener") instance=ExtResource("3_1sh2q")]
+listener = NodePath("../TriggerListener2")
+
+[node name="SpikeTrap2" parent="." instance=ExtResource("4_p65q4")]
+position = Vector2(107, 30)
+spikes_out = true
+
+[node name="SpikeTrap" parent="." instance=ExtResource("4_p65q4")]
+position = Vector2(153, 30)
+
+[node name="TriggerListener" type="Node2D" parent="."]
+script = ExtResource("5_jeuuu")
+control_paths = [NodePath("../SpikeTrap2"), NodePath("../SpikeTrap")]
+
+[node name="TriggerListener2" type="Node2D" parent="."]
+script = ExtResource("5_jeuuu")
+control_paths = [NodePath("../SpikeTrap2"), NodePath("../SpikeTrap")]

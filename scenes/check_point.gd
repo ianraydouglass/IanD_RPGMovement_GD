@@ -1,6 +1,7 @@
 extends StaticBody2D
 
 @export var check_point_code: String = "none"
+@export var is_default: bool = false
 var manager
 var spawn_anchor
 

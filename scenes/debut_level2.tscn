@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://btkqlib3b7hb5"]
+[gd_scene load_steps=14 format=3 uid="uid://btkqlib3b7hb5"]
 
 [ext_resource type="Script" path="res://scenes/Region.gd" id="1_jba38"]
 [ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="2_g8nkv"]
@@ -6,9 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://bxmt8mx6ifdiw" path="res://scenes/stairs.tscn" id="4_3mgd4"]
 [ext_resource type="Script" path="res://scenes/Performer.gd" id="5_atgil"]
 [ext_resource type="PackedScene" uid="uid://b74ll46x4j85" path="res://scenes/flame_jet.tscn" id="6_7emfy"]
+[ext_resource type="Script" path="res://scenes/BeatActNode.gd" id="7_7qx3d"]
 [ext_resource type="PackedScene" uid="uid://c6b3p83lfbg43" path="res://scenes/ice_area.tscn" id="7_tp5wj"]
 [ext_resource type="Script" path="res://scenes/ice_area.gd" id="8_6wwu5"]
 [ext_resource type="Script" path="res://scenes/RoughIsland.gd" id="9_sgb6l"]
+[ext_resource type="Script" path="res://scenes/SubPerformer.gd" id="10_d53el"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p2c7q"]
 texture = ExtResource("2_g8nkv")
@@ -501,6 +503,7 @@ exit_points = [NodePath("Stairs")]
 [node name="DebugArea" type="Node2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="DebugArea"]
+z_index = -2
 tile_set = SubResource("TileSet_pxdqy")
 format = 2
 layer_0/name = "Base layer"
@@ -523,6 +526,7 @@ layer_2/tile_data = PackedInt32Array()
 [node name="CheckPoint" parent="." instance=ExtResource("3_lskq1")]
 position = Vector2(42, 38)
 check_point_code = "debug2-1"
+is_default = true
 
 [node name="CheckPoint2" parent="." instance=ExtResource("3_lskq1")]
 position = Vector2(43, 273)
@@ -535,11 +539,37 @@ position = Vector2(122, 168)
 y_sort_enabled = true
 script = ExtResource("5_atgil")
 
-[node name="FlameJet" parent="Performer" instance=ExtResource("6_7emfy")]
+[node name="SubPerformer" type="Node2D" parent="Performer"]
+y_sort_enabled = true
+script = ExtResource("10_d53el")
+
+[node name="BeatActNode" type="Node2D" parent="Performer/SubPerformer"]
+script = ExtResource("7_7qx3d")
+beat_bottom = 5
+beat_top = 8
+act_int = 1
+
+[node name="FlameJet" parent="Performer/SubPerformer" instance=ExtResource("6_7emfy")]
 position = Vector2(396, 198)
 
-[node name="FlameJet2" parent="Performer" instance=ExtResource("6_7emfy")]
+[node name="FlameJet2" parent="Performer/SubPerformer" instance=ExtResource("6_7emfy")]
 position = Vector2(396, 188)
+
+[node name="BeatActNode2" type="Node2D" parent="Performer/SubPerformer"]
+script = ExtResource("7_7qx3d")
+beat_bottom = 9
+beat_top = 12
+act_int = 2
+
+[node name="BeatActNode3" type="Node2D" parent="Performer/SubPerformer"]
+script = ExtResource("7_7qx3d")
+beat_bottom = 13
+beat_top = 16
+act_int = 3
+
+[node name="BeatActNode4" type="Node2D" parent="Performer/SubPerformer"]
+script = ExtResource("7_7qx3d")
+beat_top = 4
 
 [node name="IceArea" parent="." instance=ExtResource("7_tp5wj")]
 position = Vector2(360, 104)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://vpxweskrwh73"]
+[gd_scene load_steps=12 format=3 uid="uid://vpxweskrwh73"]
 
 [ext_resource type="Script" path="res://scenes/GameManager.gd" id="1_7dhik"]
 [ext_resource type="Script" path="res://scenes/InputManager.gd" id="1_8wjte"]
@@ -6,9 +6,11 @@
 [ext_resource type="Script" path="res://scenes/CheckPointManager.gd" id="3_untad"]
 [ext_resource type="Script" path="res://scenes/World.gd" id="4_f8tc1"]
 [ext_resource type="PackedScene" uid="uid://cofiy38q3t8xm" path="res://scenes/debug_level.tscn" id="5_5n3i8"]
-[ext_resource type="PackedScene" uid="uid://xp8r7845v611" path="res://scenes/hazard_test.tscn" id="5_bhkis"]
 [ext_resource type="PackedScene" uid="uid://dr1wd31ficy1e" path="res://scenes/life_display.tscn" id="7_tyx3t"]
 [ext_resource type="Script" path="res://scenes/Maestro.gd" id="9_h6cvs"]
+[ext_resource type="Script" path="res://scenes/MenuLayer.gd" id="10_3rden"]
+[ext_resource type="Theme" uid="uid://2bvv31wdep2e" path="res://fonts/roboto_mono_theme.tres" id="11_46usu"]
+[ext_resource type="FontFile" uid="uid://ppya340f1itx" path="res://fonts/RobotoMono-VariableFont_wght.ttf" id="11_wg6m8"]
 
 [node name="GameManager" type="Node2D"]
 y_sort_enabled = true
@@ -29,8 +31,6 @@ script = ExtResource("4_f8tc1")
 [node name="Player" parent="." instance=ExtResource("2_nm1ul")]
 position = Vector2(151, 194)
 
-[node name="HazardTest" parent="." instance=ExtResource("5_bhkis")]
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(259, 142)
 
@@ -42,3 +42,43 @@ position = Vector2(20, 24)
 [node name="Maestro" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("9_h6cvs")
+
+[node name="MenuLayer" type="CanvasLayer" parent="."]
+script = ExtResource("10_3rden")
+
+[node name="Control" type="Control" parent="MenuLayer"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+theme = ExtResource("11_46usu")
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -124.0
+offset_bottom = 101.0
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="WarpDebug" type="Button" parent="MenuLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_wg6m8")
+text = "Warp to Debug"
+
+[node name="WarpGame" type="Button" parent="MenuLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Warp to Game"
+
+[node name="ExitGame" type="Button" parent="MenuLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit Game"
+
+[connection signal="pressed" from="MenuLayer/Control/MarginContainer/VBoxContainer/WarpDebug" to="MenuLayer" method="_on_warp_debug_pressed"]
+[connection signal="pressed" from="MenuLayer/Control/MarginContainer/VBoxContainer/WarpGame" to="MenuLayer" method="_on_warp_game_pressed"]
+[connection signal="pressed" from="MenuLayer/Control/MarginContainer/VBoxContainer/ExitGame" to="MenuLayer" method="_on_exit_game_pressed"]

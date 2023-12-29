@@ -271,6 +271,7 @@ height = 16.0
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
+collision_mask = 3
 platform_floor_layers = 4294901760
 script = ExtResource("1_6ieus")
 

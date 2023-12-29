@@ -1,0 +1,151 @@
+[gd_scene load_steps=17 format=3 uid="uid://khj6frxb84uw"]
+
+[ext_resource type="Script" path="res://scenes/FloorPress.gd" id="1_y3wek"]
+[ext_resource type="Texture2D" uid="uid://dwxk5c2p1csny" path="res://sprites/dungeon tiles/tile_button.png" id="2_3k7re"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqloo"]
+size = Vector2(12, 12)
+
+[sub_resource type="Animation" id="Animation_8wgje"]
+resource_name = "button_neutral"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_6yi3s"]
+resource_name = "button_pressed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_62or6"]
+resource_name = "switch_hidden"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_jlia5"]
+resource_name = "switch_neutral"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_ypnaj"]
+resource_name = "switch_pressed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0vwra"]
+_data = {
+"button_neutral": SubResource("Animation_8wgje"),
+"button_pressed": SubResource("Animation_6yi3s"),
+"hidden": SubResource("Animation_62or6"),
+"switch_neutral": SubResource("Animation_jlia5"),
+"switch_pressed": SubResource("Animation_ypnaj")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x22ud"]
+animation = &"button_neutral"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e6m8s"]
+animation = &"button_pressed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ckiki"]
+animation = &"hidden"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3oddb"]
+animation = &"switch_neutral"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aoyco"]
+animation = &"switch_pressed"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xxsu3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_d13n1"]
+states/button_neutral/node = SubResource("AnimationNodeAnimation_x22ud")
+states/button_neutral/position = Vector2(452, 30)
+states/button_pressed/node = SubResource("AnimationNodeAnimation_e6m8s")
+states/button_pressed/position = Vector2(650, 30)
+states/hidden/node = SubResource("AnimationNodeAnimation_ckiki")
+states/hidden/position = Vector2(488, 92)
+states/switch_neutral/node = SubResource("AnimationNodeAnimation_3oddb")
+states/switch_neutral/position = Vector2(461, 152)
+states/switch_pressed/node = SubResource("AnimationNodeAnimation_aoyco")
+states/switch_pressed/position = Vector2(676, 147)
+transitions = ["Start", "hidden", SubResource("AnimationNodeStateMachineTransition_xxsu3")]
+graph_offset = Vector2(0.550052, 0)
+
+[node name="Floor_button" type="Area2D"]
+z_index = -1
+y_sort_enabled = true
+position = Vector2(234, 219)
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_y3wek")
+must_hold = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lqloo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3k7re")
+hframes = 3
+vframes = 2
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0vwra")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_d13n1")
+anim_player = NodePath("../AnimationPlayer")
+active = true

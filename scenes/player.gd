@@ -335,6 +335,9 @@ func snap_direction(d):
 	else:
 		push_direction.y = 0
 	return(push_direction.normalized())
+	
+func trigger_switch():
+	pass
 
 func _on_i_timer_timeout():
 	print("invulnerable ended")

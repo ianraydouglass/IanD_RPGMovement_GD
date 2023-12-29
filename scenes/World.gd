@@ -43,6 +43,13 @@ func respawn_to_checkpoint(s, o):
 	change_to_scene(s)
 	player_to_origin(o)
 	pass
+	
+func blind_respawn(s):
+	change_to_scene(s)
+	if game_manager.check_point_manager.current_default_check_point != null:
+		var o = game_manager.check_point_manager.current_default_check_point.global_transform.origin
+		player_to_origin(o)
+	#find proper origin
 
 func player_to_origin(o):
 	game_manager.player_object.global_transform.origin = o

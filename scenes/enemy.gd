@@ -155,6 +155,9 @@ func snap_direction(d):
 		push_direction.y = 0
 	return(push_direction.normalized())
 
+func trigger_switch():
+	pass
+
 func _on_g_timer_timeout():
 	print("gloat timer end")
 	hold_end()
