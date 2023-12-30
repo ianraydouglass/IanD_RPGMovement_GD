@@ -8,6 +8,7 @@ var follow_player: bool = false
 var check_point_manager
 var world_manager
 var maestro
+var collect
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player_object = $Player
@@ -21,6 +22,7 @@ func _ready():
 	world_manager.first_time_setup()
 	follow_player = true
 	maestro = %Maestro
+	collect = $HUDLayer/Collect
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -18,6 +18,7 @@ func get_region_check_points():
 	if local_points.size() > 0:
 		for p in local_points:
 			game_manager.check_point_manager.register_check_point(p)
+	local_region.refresh_local_check_points()
 	pass
 func first_time_setup():
 	#do what I would do in ready

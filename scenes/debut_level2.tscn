@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://btkqlib3b7hb5"]
+[gd_scene load_steps=15 format=3 uid="uid://btkqlib3b7hb5"]
 
 [ext_resource type="Script" path="res://scenes/Region.gd" id="1_jba38"]
 [ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="2_g8nkv"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scenes/ice_area.gd" id="8_6wwu5"]
 [ext_resource type="Script" path="res://scenes/RoughIsland.gd" id="9_sgb6l"]
 [ext_resource type="Script" path="res://scenes/SubPerformer.gd" id="10_d53el"]
+[ext_resource type="PackedScene" uid="uid://c2masm7jsuptb" path="res://scenes/fire_key_container.tscn" id="12_aveny"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p2c7q"]
 texture = ExtResource("2_g8nkv")
@@ -601,3 +602,5 @@ script = ExtResource("9_sgb6l")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoughIsland"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[node name="FireKeyContainer" parent="." instance=ExtResource("12_aveny")]

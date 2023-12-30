@@ -310,6 +310,7 @@ func toggle_blink():
 		blink_state = true
 
 func kill_player():
+	game_manager.collect.drop_keys()
 	print("player is dead")
 	revive_player()
 	pass

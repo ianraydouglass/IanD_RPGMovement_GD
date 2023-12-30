@@ -14,6 +14,6 @@ func _process(delta):
 	
 func transport_other(other):
 	var character_object = other.get_owner()
-	if character_object.character_type != "player":
+	if !character_object.has_method("move_player"):
 		return
 	transport_manager.transport_out()

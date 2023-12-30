@@ -21,6 +21,7 @@ func _process(delta):
 func register_check_point(c):
 	if all_check_points.has(c.check_point_code):
 		print("can't register check point, already has code " + c.check_point_code)
+		c.manager = self
 		if c.is_default == true:
 			current_default_check_point = c
 		return
@@ -55,6 +56,15 @@ func code_as_current(s):
 			print("current check point set to " + s.check_point_code)
 			respawn_location = s.spawn_anchor.global_transform.origin
 			return
+
+func check_if_current(s):
+	for i in all_check_points.size():
+		if all_check_points[i] == s.check_point_code:
+			if current_check_point == i:
+				return true
+			
+	return false
+	
 
 func respawn_to_world():
 	var x = check_point_scene_index[current_check_point]

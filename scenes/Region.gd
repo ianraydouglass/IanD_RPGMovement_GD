@@ -20,6 +20,11 @@ func get_local_check_points():
 		if c.has_method("register_check_point"):
 			c.register_check_point()
 
+func refresh_local_check_points():
+	for c in get_children():
+		if c.has_method("register_check_point"):
+			c.refresh_point()
+
 func check_point_in(p):
 	local_check_points.append(p)
 	

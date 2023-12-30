@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://vpxweskrwh73"]
+[gd_scene load_steps=14 format=3 uid="uid://vpxweskrwh73"]
 
 [ext_resource type="Script" path="res://scenes/GameManager.gd" id="1_7dhik"]
 [ext_resource type="Script" path="res://scenes/InputManager.gd" id="1_8wjte"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scenes/World.gd" id="4_f8tc1"]
 [ext_resource type="PackedScene" uid="uid://cofiy38q3t8xm" path="res://scenes/debug_level.tscn" id="5_5n3i8"]
 [ext_resource type="PackedScene" uid="uid://dr1wd31ficy1e" path="res://scenes/life_display.tscn" id="7_tyx3t"]
+[ext_resource type="Texture2D" uid="uid://tdsgpxwelbjt" path="res://sprites/dungeon tiles/Keys.png" id="8_mfrib"]
+[ext_resource type="Script" path="res://scenes/CollectManager.gd" id="8_t630g"]
 [ext_resource type="Script" path="res://scenes/Maestro.gd" id="9_h6cvs"]
 [ext_resource type="Script" path="res://scenes/MenuLayer.gd" id="10_3rden"]
 [ext_resource type="Theme" uid="uid://2bvv31wdep2e" path="res://fonts/roboto_mono_theme.tres" id="11_46usu"]
@@ -25,6 +27,7 @@ script = ExtResource("3_untad")
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("4_f8tc1")
+all_level_scenes = ["res://scenes/debug_level.tscn", "res://scenes/debut_level2.tscn", "res://scenes/game_level_1.tscn"]
 
 [node name="DebugLevel" parent="World" instance=ExtResource("5_5n3i8")]
 
@@ -38,6 +41,22 @@ position = Vector2(259, 142)
 
 [node name="LifeDisplay" parent="HUDLayer" instance=ExtResource("7_tyx3t")]
 position = Vector2(20, 24)
+
+[node name="Collect" type="Node2D" parent="HUDLayer"]
+script = ExtResource("8_t630g")
+
+[node name="IceKeyIndicator" type="Sprite2D" parent="HUDLayer/Collect"]
+visible = false
+position = Vector2(56, 16)
+texture = ExtResource("8_mfrib")
+hframes = 2
+
+[node name="FireKeyIndicator" type="Sprite2D" parent="HUDLayer/Collect"]
+visible = false
+position = Vector2(80, 16)
+texture = ExtResource("8_mfrib")
+hframes = 2
+frame = 1
 
 [node name="Maestro" type="Node2D" parent="."]
 unique_name_in_owner = true

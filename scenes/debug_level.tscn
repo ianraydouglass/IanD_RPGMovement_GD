@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cofiy38q3t8xm"]
+[gd_scene load_steps=13 format=3 uid="uid://cofiy38q3t8xm"]
 
 [ext_resource type="Script" path="res://scenes/Region.gd" id="1_8fkni"]
 [ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="2_vxucw"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dy3xu2a06aii6" path="res://scenes/enemy.tscn" id="7_8v8y6"]
 [ext_resource type="PackedScene" uid="uid://xp8r7845v611" path="res://scenes/hazard_test.tscn" id="8_m1jx8"]
 [ext_resource type="PackedScene" uid="uid://c13ymclq1l0fe" path="res://scenes/spike_test.tscn" id="9_p87kg"]
+[ext_resource type="PackedScene" uid="uid://d3nkdejqltuni" path="res://scenes/ice_key_container.tscn" id="10_qui85"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p2c7q"]
 texture = ExtResource("2_vxucw")
@@ -548,3 +549,5 @@ position = Vector2(305, 57)
 position = Vector2(247, 167)
 
 [node name="SpikeTest" parent="." instance=ExtResource("9_p87kg")]
+
+[node name="IceKeyContainer" parent="." instance=ExtResource("10_qui85")]

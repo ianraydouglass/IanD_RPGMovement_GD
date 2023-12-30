@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2masm7jsuptb"]
+
+[ext_resource type="Script" path="res://scenes/FireKeyContainer.gd" id="1_hac6v"]
+[ext_resource type="Script" path="res://scenes/FireKeyArea.gd" id="2_3l7qs"]
+[ext_resource type="Texture2D" uid="uid://tdsgpxwelbjt" path="res://sprites/dungeon tiles/Keys.png" id="3_78o4d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d55m4"]
+
+[node name="FireKeyContainer" type="Node2D"]
+position = Vector2(536, 120)
+script = ExtResource("1_hac6v")
+
+[node name="FireKeyArea" type="Area2D" parent="."]
+script = ExtResource("2_3l7qs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireKeyArea"]
+shape = SubResource("RectangleShape2D_d55m4")
+
+[node name="Sprite2D" type="Sprite2D" parent="FireKeyArea"]
+texture = ExtResource("3_78o4d")
+hframes = 2
+frame = 1
