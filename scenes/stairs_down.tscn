@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://xmxfij5ktsc4"]
+
+[ext_resource type="Script" path="res://scenes/transporter.gd" id="1_2a6gb"]
+[ext_resource type="Script" path="res://scenes/ExitArea.gd" id="2_578sf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1dch0"]
+size = Vector2(36, 10)
+
+[node name="Stairs_Down" type="Node2D"]
+position = Vector2(1199, 425)
+script = ExtResource("1_2a6gb")
+next_scene_index = 3
+
+[node name="Boundries" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Boundries"]
+position = Vector2(1, 31)
+rotation = 1.5708
+polygon = PackedVector2Array(0, -18, 8, -18, 8, 18, 0, 18, 0, 16, 7, 16, 7, -16, 0, -16)
+
+[node name="ExitArea" type="Area2D" parent="Boundries"]
+script = ExtResource("2_578sf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundries/ExitArea"]
+position = Vector2(1, 26)
+shape = SubResource("RectangleShape2D_1dch0")
+
+[node name="Entry Point" type="Node2D" parent="Boundries"]
+position = Vector2(1, -12)

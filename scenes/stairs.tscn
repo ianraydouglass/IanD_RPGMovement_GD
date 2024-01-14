@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scenes/ExitArea.gd" id="3_3i5bd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ofwar"]
-size = Vector2(6, 14)
+size = Vector2(7, 14)
 
 [node name="Stairs" type="Node2D"]
 script = ExtResource("1_ddp8r")
@@ -25,7 +25,7 @@ polygon = PackedVector2Array(0, -8, 8, -8, 8, 8, 0, 8, 0, 7, 7, 7, 7, -7, 0, -7)
 script = ExtResource("3_3i5bd")
 
 [node name="ExitShape" type="CollisionShape2D" parent="Boundries/ExitArea"]
-position = Vector2(-3, 0)
+position = Vector2(-3.5, 0)
 shape = SubResource("RectangleShape2D_ofwar")
 debug_color = Color(0.227451, 0.623529, 0.396078, 0.419608)
 

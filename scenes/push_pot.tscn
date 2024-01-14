@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b88xhi6y36v4f"]
 
 [ext_resource type="Texture2D" uid="uid://1q8m5qct0vbu" path="res://sprites/dungeon tiles/dungeon.png" id="1_1k3vb"]
-[ext_resource type="Script" path="res://push_pot.gd" id="1_tei38"]
+[ext_resource type="Script" path="res://scenes/push_pot.gd" id="1_tei38"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_b4eqi"]
 

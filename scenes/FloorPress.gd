@@ -61,6 +61,7 @@ func toggle_state():
 		see_press()
 	pass
 
+
 func refresh_sprite():
 	if switch_hidden == true:
 		state_machine.travel("hidden")

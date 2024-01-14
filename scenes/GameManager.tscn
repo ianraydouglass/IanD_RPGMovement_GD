@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cfe4gkd7hbca5" path="res://scenes/player.tscn" id="2_nm1ul"]
 [ext_resource type="Script" path="res://scenes/CheckPointManager.gd" id="3_untad"]
 [ext_resource type="Script" path="res://scenes/World.gd" id="4_f8tc1"]
-[ext_resource type="PackedScene" uid="uid://cofiy38q3t8xm" path="res://scenes/debug_level.tscn" id="5_5n3i8"]
+[ext_resource type="PackedScene" uid="uid://c2kknl80wa5mq" path="res://scenes/game_level_1.tscn" id="5_51aer"]
 [ext_resource type="PackedScene" uid="uid://dr1wd31ficy1e" path="res://scenes/life_display.tscn" id="7_tyx3t"]
 [ext_resource type="Texture2D" uid="uid://tdsgpxwelbjt" path="res://sprites/dungeon tiles/Keys.png" id="8_mfrib"]
 [ext_resource type="Script" path="res://scenes/CollectManager.gd" id="8_t630g"]
@@ -27,9 +27,9 @@ script = ExtResource("3_untad")
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("4_f8tc1")
-all_level_scenes = ["res://scenes/debug_level.tscn", "res://scenes/debut_level2.tscn", "res://scenes/game_level_1.tscn"]
+all_level_scenes = ["res://scenes/debug_level.tscn", "res://scenes/debut_level2.tscn", "res://scenes/game_level_1.tscn", "res://scenes/game_level_2.tscn"]
 
-[node name="DebugLevel" parent="World" instance=ExtResource("5_5n3i8")]
+[node name="GameLevel1" parent="World" instance=ExtResource("5_51aer")]
 
 [node name="Player" parent="." instance=ExtResource("2_nm1ul")]
 position = Vector2(151, 194)
