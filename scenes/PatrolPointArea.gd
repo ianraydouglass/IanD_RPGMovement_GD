@@ -18,7 +18,7 @@ func register_enemy(other):
 	if other.has_method("check_player"):
 		return
 	var character_object = other.get_owner()
-	if character_object.character_type != "enemy":
+	if !character_object.has_method("move_enemy"):
 		return
 	patrol_point.notify_patrol_area()
 	pass

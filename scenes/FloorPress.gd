@@ -85,6 +85,8 @@ func refresh_sprite():
 	pass
 
 func register_other(other):
+	if other.has_method("check_player"):
+		return
 	if other.has_method("trigger_switch"):
 		if currently_within.has(other):
 			print("floor press avoided adding a dupe reference")
