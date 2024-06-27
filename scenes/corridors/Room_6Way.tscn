@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://7yqpmb3u1xjt"]
+
+[ext_resource type="Script" path="res://scenes/CorridorTemplate.gd" id="1_mf11k"]
+[ext_resource type="TileSet" uid="uid://dv0wp0j063fio" path="res://sprites/dungeon tiles/debug_tiles.tres" id="2_keojj"]
+
+[node name="Room6Way" type="Node2D"]
+script = ExtResource("1_mf11k")
+north_entry = [NodePath("NorthEntry1"), NodePath("NorthEntry2")]
+south_entry = [NodePath("SouthEntry1"), NodePath("SouthEntry2")]
+east_entry = [NodePath("EastEntry1")]
+west_entry = [NodePath("WestEntry1")]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_keojj")
+format = 2
+layer_0/name = "base"
+layer_0/tile_data = PackedInt32Array(0, 131072, 0, 1, 131072, 0, 65537, 65536, 0, 65538, 65536, 0, 131074, 65536, 0, 131075, 65536, 0, 196611, 65536, 0, 196612, 65536, 0, 65536, 131072, 0, 131072, 65536, 0, 196608, 131072, 0, 131073, 65536, 0, 196609, 65536, 0, 2, 65536, 0, 196610, 65536, 0, 262146, 65536, 0, 3, 131072, 0, 65539, 65536, 0, 4, 131072, 0, 65540, 65536, 0, 131076, 65536, 0, 262144, 131072, 0, 262145, 131072, 0, 262147, 131072, 0, 262148, 131072, 0, 5, 65536, 0, 65541, 65536, 0, 131077, 65536, 0, 196613, 65536, 0, 262149, 65536, 0, 65542, 65536, 0, 131078, 65536, 0, 196614, 65536, 0, 131079, 65536, 0, 6, 131072, 0, 7, 131072, 0, 65543, 131072, 0, 262150, 131072, 0, 262151, 131072, 0, 196615, 131072, 0)
+
+[node name="NorthEntry1" type="Node2D" parent="."]
+position = Vector2(40, 0)
+
+[node name="NorthEntry2" type="Node2D" parent="."]
+position = Vector2(88, 0)
+
+[node name="EastEntry1" type="Node2D" parent="."]
+position = Vector2(128, 40)
+
+[node name="SouthEntry1" type="Node2D" parent="."]
+position = Vector2(40, 80)
+
+[node name="SouthEntry2" type="Node2D" parent="."]
+position = Vector2(88, 80)
+
+[node name="WestEntry1" type="Node2D" parent="."]
+position = Vector2(0, 40)

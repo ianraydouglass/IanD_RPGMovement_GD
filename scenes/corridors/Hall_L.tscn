@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctuo8qd3hqsj4"]
+
+[ext_resource type="Script" path="res://scenes/CorridorTemplate.gd" id="1_1y2a5"]
+[ext_resource type="TileSet" uid="uid://dv0wp0j063fio" path="res://sprites/dungeon tiles/debug_tiles.tres" id="2_imir7"]
+
+[node name="HallL" type="Node2D"]
+script = ExtResource("1_1y2a5")
+south_entry = [NodePath("SouthEntry1")]
+east_entry = [NodePath("EastEntry1")]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_imir7")
+format = 2
+layer_0/name = "base"
+layer_0/tile_data = PackedInt32Array(0, 131072, 0, 1, 131072, 0, 65537, 65536, 0, 65538, 65536, 0, 65536, 131072, 0, 131072, 131072, 0, 196608, 131072, 0, 131073, 65536, 0, 196609, 65536, 0, 2, 131072, 0, 196610, 131072, 0, 262146, 131072, 0, 262144, 131072, 0, 262145, 65536, 0, 65539, 65536, 0, 65540, 65536, 0, 3, 131072, 0, 4, 131072, 0, 131074, 131072, 0, 131075, 131072, 0, 131076, 131072, 0)
+
+[node name="EastEntry1" type="Node2D" parent="."]
+position = Vector2(80, 24)
+
+[node name="SouthEntry1" type="Node2D" parent="."]
+position = Vector2(24, 80)

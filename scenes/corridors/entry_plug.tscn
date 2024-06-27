@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdmeufimbpvny"]
+
+[ext_resource type="Texture2D" uid="uid://drns3brkgbdc3" path="res://sprites/dungeon tiles/PrototypeTiles.png" id="1_n7508"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2rs0a"]
+size = Vector2(16, 16)
+
+[node name="EntryPlug" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_n7508")
+hframes = 4
+vframes = 4
+frame = 4
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2rs0a")
