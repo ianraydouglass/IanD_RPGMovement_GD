@@ -2,7 +2,8 @@ extends Node2D
 
 @export var safety_size: int = 100
 @export var dungeon_size: int = 30
-var dungeon_talley: int
+var dungeon_talley: int = 0
+var safety_talley: int = 0
 
 var starting_corridor
 
@@ -20,7 +21,13 @@ var target_entry
 
 var placed_entry
 
+var placed_corridor
+
 var rng
+
+var is_building_dungeon: bool = false
+
+var is_testing_piece: bool = false
 
  
 # Called when the node enters the scene tree for the first time.
@@ -35,7 +42,7 @@ func _ready():
 	if dungeon_size <= 0:
 		dungeon_size = 2
 	rng = RandomNumberGenerator.new()
-	make_random_dungeon()
+	is_building_dungeon = true
 	pass # Replace with function body.
 
 func add_entries_from_room(r):
@@ -51,10 +58,45 @@ func add_entries_from_room(r):
 		pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
+	if !is_building_dungeon:
+		return
+	if safety_talley >= safety_size:
+		print("halted dungeon generation for safety reasons")
+		is_building_dungeon = false
+		return
+	safety_talley += 1
+	if dungeon_talley >= dungeon_size:
+		print("halted dungeon generation because dungeon was finished")
+		is_building_dungeon = false
+		return
+	if is_testing_piece && placed_corridor != null:
+		print("testing piece")
+		var fail_place = is_corridor_overlapping(placed_corridor)
+		if fail_place:
+			placed_corridor.queue_free()
+			placed_corridor = null
+		else:#success
+			dungeon_talley += 1
+			upkeep_entries_from_corridor(placed_corridor)
+			var tri = all_entry_points.find(target_entry)
+			if tri != -1:
+				all_entry_points.remove_at(tri)
+			else:
+				print("failed to find target entry in all entry points")
+			var pri = all_entry_points.find(placed_entry)
+			if pri != -1:
+				all_entry_points.remove_at(pri)
+			else:
+				print("failed to find paced entry in all points")
+			
+	select_target_entry()
+	var incoming_corridor = select_corridor_to_place()
+	try_placing_corridor(incoming_corridor)
 	pass
 
 func make_random_dungeon():
+	is_building_dungeon = true
 	#start looping
 	for d in safety_size:
 		if dungeon_talley >= dungeon_size:
@@ -89,6 +131,7 @@ func select_corridor_to_place():
 	pass
 
 
+
 func try_placing_corridor(c):
 	var scene = load(c)
 	var instance = scene.instantiate()
@@ -102,26 +145,36 @@ func try_placing_corridor(c):
 			valid_entry_points.append(incoming_entries[p])
 	if valid_entry_points.size() == 0:
 		instance.queue_free()
-		return false
+		placed_corridor = null
+		is_testing_piece = false
+		return
 	var placement_index = rng.randi_range(0, (valid_entry_points.size()-1))
 	placed_entry = valid_entry_points[placement_index]
-	add_entries_from_room(instance)
+	#add_entries_from_room(instance)
 	var position_adjustment = target_entry.global_position
 	instance.global_position = position_adjustment - instance.get_entry_offset(placed_entry)
-	var areas_to_test = instance.placement_area.get_overlapping_areas()
+	placed_corridor = instance
+	is_testing_piece = true
+
+func upkeep_entries_from_corridor(c):
+	add_entries_from_room(placed_corridor)
+
+func is_corridor_overlapping(c):
+	var areas_to_test
+	areas_to_test = c.placement_area.get_overlapping_areas()
 	var found_overlap = false
 	if areas_to_test.size() != 0:
 		print("found collisions when testing room")
 		for a in areas_to_test.size():
-			var area_parent = a.get_parent()
+			var area_parent = areas_to_test[a].get_parent()
 			if area_parent.is_in_group("room"):
 				found_overlap = true
-				break
+				print("overlap was found to be a room")
 		pass
 	if found_overlap:
-		instance.queue_free()
+		return true
+	else:
 		return false
-	return true
 
 func place_starting_room():
 	var scene = load(starting_corridor)

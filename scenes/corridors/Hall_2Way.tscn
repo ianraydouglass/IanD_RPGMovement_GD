@@ -16,6 +16,7 @@ south_entry = [NodePath("SouthEntry1")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(24, 40)
+scale = Vector2(0.95, 0.95)
 shape = SubResource("RectangleShape2D_g3jpi")
 
 [node name="TileMap" type="TileMap" parent="."]
