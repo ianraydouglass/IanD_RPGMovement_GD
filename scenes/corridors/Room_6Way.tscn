@@ -1,14 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://7yqpmb3u1xjt"]
+[gd_scene load_steps=5 format=3 uid="uid://7yqpmb3u1xjt"]
 
 [ext_resource type="Script" path="res://scenes/CorridorTemplate.gd" id="1_mf11k"]
 [ext_resource type="TileSet" uid="uid://dv0wp0j063fio" path="res://sprites/dungeon tiles/debug_tiles.tres" id="2_keojj"]
+[ext_resource type="Script" path="res://scenes/corridors/entry_point.gd" id="3_k8agu"]
 
-[node name="Room6Way" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pdqtn"]
+size = Vector2(128, 80)
+
+[node name="Room6Way" type="Node2D" node_paths=PackedStringArray("north_entry", "south_entry", "east_entry", "west_entry") groups=["room"]]
 script = ExtResource("1_mf11k")
 north_entry = [NodePath("NorthEntry1"), NodePath("NorthEntry2")]
 south_entry = [NodePath("SouthEntry1"), NodePath("SouthEntry2")]
 east_entry = [NodePath("EastEntry1")]
 west_entry = [NodePath("WestEntry1")]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(64, 40)
+shape = SubResource("RectangleShape2D_pdqtn")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_keojj")
@@ -18,18 +28,30 @@ layer_0/tile_data = PackedInt32Array(0, 131072, 0, 1, 131072, 0, 65537, 65536, 0
 
 [node name="NorthEntry1" type="Node2D" parent="."]
 position = Vector2(40, 0)
+script = ExtResource("3_k8agu")
+direction_identity = "n"
 
 [node name="NorthEntry2" type="Node2D" parent="."]
 position = Vector2(88, 0)
-
-[node name="EastEntry1" type="Node2D" parent="."]
-position = Vector2(128, 40)
+script = ExtResource("3_k8agu")
+direction_identity = "n"
 
 [node name="SouthEntry1" type="Node2D" parent="."]
 position = Vector2(40, 80)
+script = ExtResource("3_k8agu")
+direction_identity = "s"
 
 [node name="SouthEntry2" type="Node2D" parent="."]
 position = Vector2(88, 80)
+script = ExtResource("3_k8agu")
+direction_identity = "s"
+
+[node name="EastEntry1" type="Node2D" parent="."]
+position = Vector2(128, 40)
+script = ExtResource("3_k8agu")
+direction_identity = "e"
 
 [node name="WestEntry1" type="Node2D" parent="."]
 position = Vector2(0, 40)
+script = ExtResource("3_k8agu")
+direction_identity = "w"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://vpxweskrwh73"]
+[gd_scene load_steps=16 format=3 uid="uid://vpxweskrwh73"]
 
 [ext_resource type="Script" path="res://scenes/GameManager.gd" id="1_7dhik"]
 [ext_resource type="Script" path="res://scenes/InputManager.gd" id="1_8wjte"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/World.gd" id="4_f8tc1"]
 [ext_resource type="PackedScene" uid="uid://c2kknl80wa5mq" path="res://scenes/game_level_1.tscn" id="5_51aer"]
 [ext_resource type="Script" path="res://scenes/DungeonBuilder.gd" id="6_iceci"]
+[ext_resource type="PackedScene" uid="uid://g2vxpsyy25rj" path="res://scenes/corridors/Room_4Way.tscn" id="7_dr7ff"]
 [ext_resource type="PackedScene" uid="uid://dr1wd31ficy1e" path="res://scenes/life_display.tscn" id="7_tyx3t"]
 [ext_resource type="Texture2D" uid="uid://tdsgpxwelbjt" path="res://sprites/dungeon tiles/Keys.png" id="8_mfrib"]
 [ext_resource type="Script" path="res://scenes/CollectManager.gd" id="8_t630g"]
@@ -35,9 +36,15 @@ visible = false
 
 [node name="DungeonBuilder" type="Node2D" parent="World"]
 script = ExtResource("6_iceci")
+safety_size = 2000
+dungeon_size = 20
+
+[node name="Room4Way" parent="World/DungeonBuilder" instance=ExtResource("7_dr7ff")]
 
 [node name="Player" parent="." instance=ExtResource("2_nm1ul")]
-position = Vector2(151, 194)
+position = Vector2(40, 32)
+collision_layer = 0
+collision_mask = 0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(259, 142)

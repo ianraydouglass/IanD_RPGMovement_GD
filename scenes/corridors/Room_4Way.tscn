@@ -1,14 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://g2vxpsyy25rj"]
+[gd_scene load_steps=5 format=3 uid="uid://g2vxpsyy25rj"]
 
 [ext_resource type="Script" path="res://scenes/CorridorTemplate.gd" id="1_7oocq"]
 [ext_resource type="TileSet" uid="uid://dv0wp0j063fio" path="res://sprites/dungeon tiles/debug_tiles.tres" id="2_ogkk0"]
+[ext_resource type="Script" path="res://scenes/corridors/entry_point.gd" id="3_hvtv8"]
 
-[node name="Room4Way" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t8gvt"]
+size = Vector2(80, 80)
+
+[node name="Room4Way" type="Node2D" node_paths=PackedStringArray("north_entry", "south_entry", "east_entry", "west_entry") groups=["room"]]
 script = ExtResource("1_7oocq")
 north_entry = [NodePath("NorthEntry1")]
 south_entry = [NodePath("SouthEntry1")]
 east_entry = [NodePath("EastEntry1")]
 west_entry = [NodePath("WestEntry1")]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(40, 40)
+shape = SubResource("RectangleShape2D_t8gvt")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_ogkk0")
@@ -18,12 +28,20 @@ layer_0/tile_data = PackedInt32Array(0, 131072, 0, 1, 131072, 0, 65537, 65536, 0
 
 [node name="NorthEntry1" type="Node2D" parent="."]
 position = Vector2(40, 0)
-
-[node name="EastEntry1" type="Node2D" parent="."]
-position = Vector2(80, 40)
+script = ExtResource("3_hvtv8")
+direction_identity = "n"
 
 [node name="SouthEntry1" type="Node2D" parent="."]
 position = Vector2(40, 80)
+script = ExtResource("3_hvtv8")
+direction_identity = "s"
+
+[node name="EastEntry1" type="Node2D" parent="."]
+position = Vector2(80, 40)
+script = ExtResource("3_hvtv8")
+direction_identity = "e"
 
 [node name="WestEntry1" type="Node2D" parent="."]
 position = Vector2(0, 40)
+script = ExtResource("3_hvtv8")
+direction_identity = "w"
