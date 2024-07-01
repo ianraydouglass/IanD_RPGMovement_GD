@@ -57,69 +57,55 @@ func add_entries_from_room(r):
 		all_entry_points.append(entries_to_add[e])
 		pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	#stop if not building dungeon
 	if !is_building_dungeon:
 		return
+	#stop if safety talley is met or exceeded
 	if safety_talley >= safety_size:
 		print("halted dungeon generation for safety reasons")
 		is_building_dungeon = false
 		return
+	#increment safety talley
 	safety_talley += 1
+	#stop if dungeon size is met or exceeded
 	if dungeon_talley >= dungeon_size:
 		print("halted dungeon generation because dungeon was finished")
 		is_building_dungeon = false
 		return
+	#test corridor if there is one waiting to be tested
 	if is_testing_piece && placed_corridor != null:
-		print("testing piece")
-		var fail_place = is_corridor_overlapping(placed_corridor)
-		if fail_place:
-			placed_corridor.queue_free()
-			placed_corridor = null
-		else:#success
-			dungeon_talley += 1
-			upkeep_entries_from_corridor(placed_corridor)
-			var tri = all_entry_points.find(target_entry)
-			if tri != -1:
-				all_entry_points.remove_at(tri)
-			else:
-				print("failed to find target entry in all entry points")
-			var pri = all_entry_points.find(placed_entry)
-			if pri != -1:
-				all_entry_points.remove_at(pri)
-			else:
-				print("failed to find paced entry in all points")
+		test_current_corridor()
 			
+	#select the next entry point
 	select_target_entry()
+	#pick the next corridor
 	var incoming_corridor = select_corridor_to_place()
+	#instantiate it and verify that it has a valid entry. Offset position if so
 	try_placing_corridor(incoming_corridor)
 	pass
 
-func make_random_dungeon():
-	is_building_dungeon = true
-	#start looping
-	for d in safety_size:
-		if dungeon_talley >= dungeon_size:
-			break
-		select_target_entry() #sets target entry
-		var incoming_corridor = select_corridor_to_place()
-		if try_placing_corridor(incoming_corridor):
-			dungeon_talley += 1
-			var tri = all_entry_points.find(target_entry)
-			if tri != -1:
-				all_entry_points.remove_at(tri)
-			else:
-				print("failed to find target entry in all entry points")
-			var pri = all_entry_points.find(placed_entry)
-			if pri != -1:
-				all_entry_points.remove_at(pri)
-			else:
-				print("failed to find paced entry in all points")
-			
-		pass
-	
-	#close holes
+func test_current_corridor():
+	print("testing piece")
+	var fail_place = is_corridor_overlapping(placed_corridor)
+	if fail_place:
+		placed_corridor.queue_free()
+		placed_corridor = null
+	else:#success
+		dungeon_talley += 1
+		upkeep_entries_from_corridor(placed_corridor)
+		var tri = all_entry_points.find(target_entry)
+		if tri != -1:
+			all_entry_points.remove_at(tri)
+		else:
+			print("failed to find target entry in all entry points")
+		var pri = all_entry_points.find(placed_entry)
+		if pri != -1:
+			all_entry_points.remove_at(pri)
+		else:
+			print("failed to find paced entry in all points")
 	pass
+
 
 func select_target_entry():
 	var entry_index = rng.randi_range(0, (all_entry_points.size()-1))

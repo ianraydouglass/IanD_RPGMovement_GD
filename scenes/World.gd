@@ -20,12 +20,15 @@ func get_region_check_points():
 			game_manager.check_point_manager.register_check_point(p)
 	local_region.refresh_local_check_points()
 	pass
+
+#commented-out these methods since there is no level with check points in this modified scene
 func first_time_setup():
 	#do what I would do in ready
-	current_level_scene = get_child(0)
-	get_region_check_points()
-	current_level_setup()
-	set_default_point()
+	#current_level_scene = get_child(0)
+	#get_region_check_points()
+	#current_level_setup()
+	#set_default_point()
+	pass
 	
 func current_level_setup():
 	current_level_scene.set_exit_points()

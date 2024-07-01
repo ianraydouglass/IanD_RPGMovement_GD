@@ -1,11 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://vpxweskrwh73"]
+[gd_scene load_steps=15 format=3 uid="uid://vpxweskrwh73"]
 
 [ext_resource type="Script" path="res://scenes/GameManager.gd" id="1_7dhik"]
 [ext_resource type="Script" path="res://scenes/InputManager.gd" id="1_8wjte"]
 [ext_resource type="PackedScene" uid="uid://cfe4gkd7hbca5" path="res://scenes/player.tscn" id="2_nm1ul"]
 [ext_resource type="Script" path="res://scenes/CheckPointManager.gd" id="3_untad"]
 [ext_resource type="Script" path="res://scenes/World.gd" id="4_f8tc1"]
-[ext_resource type="PackedScene" uid="uid://c2kknl80wa5mq" path="res://scenes/game_level_1.tscn" id="5_51aer"]
 [ext_resource type="Script" path="res://scenes/DungeonBuilder.gd" id="6_iceci"]
 [ext_resource type="PackedScene" uid="uid://g2vxpsyy25rj" path="res://scenes/corridors/Room_4Way.tscn" id="7_dr7ff"]
 [ext_resource type="PackedScene" uid="uid://dr1wd31ficy1e" path="res://scenes/life_display.tscn" id="7_tyx3t"]
@@ -30,9 +29,6 @@ script = ExtResource("3_untad")
 y_sort_enabled = true
 script = ExtResource("4_f8tc1")
 all_level_scenes = ["res://scenes/debug_level.tscn", "res://scenes/debut_level2.tscn", "res://scenes/game_level_1.tscn", "res://scenes/game_level_2.tscn"]
-
-[node name="GameLevel1" parent="World" instance=ExtResource("5_51aer")]
-visible = false
 
 [node name="DungeonBuilder" type="Node2D" parent="World"]
 z_index = -1
